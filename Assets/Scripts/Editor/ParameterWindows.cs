@@ -5,8 +5,11 @@ using UnityEditor;
 
 public class ParameterWindows : EditorWindow
 {
-    private int myNumberOfDialogues;
-    private int numberOfSentences;
+    private NodesExample _currentNode;
+    private Object myNode;
+    private int _minNodes;
+    private int _maxConnections;
+    
 
     [MenuItem("Dialogue System/Pramaters Editor")]
     static void CreateWindow()
@@ -19,15 +22,32 @@ public class ParameterWindows : EditorWindow
         minSize = new Vector2(350,300);
 
         GUILayout.Label("You can edit the parameter of the Dialogue System", EditorStyles.boldLabel);
+
         EditorGUILayout.BeginHorizontal();
-        myNumberOfDialogues = EditorGUILayout.IntField("Number of dialogues",myNumberOfDialogues);
+        myNode = EditorGUILayout.ObjectField("My current node is :", myNode, typeof(MonoScript),true);
+        //EditorGUILayout.SelectableLabel("my");
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        _minNodes = EditorGUILayout.IntField("Min Nodes",_minNodes);
         GUILayout.Button("Create");
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        numberOfSentences = EditorGUILayout.IntField("Number of sentences", numberOfSentences);
+        _maxConnections = EditorGUILayout.IntField("Max connection per Nodes", _maxConnections);
         GUILayout.Button("Create");
         EditorGUILayout.EndHorizontal();
+
+
+        if (_minNodes<=2)
+        {
+            _minNodes = 2;
+        }
+        if (_maxConnections<=1)
+        {
+            _maxConnections = 1;
+        }
+
 
 
     }
