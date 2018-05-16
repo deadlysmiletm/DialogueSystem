@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class ParameterWindows : EditorWindow
 {
-    private NodesExample _currentNode;
+    private BaseNode _currentNode;
     private Object myNode;
     private int _minNodes;
     private int _maxConnections;

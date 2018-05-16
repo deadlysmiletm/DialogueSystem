@@ -1,22 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodesExample
+public class BaseNode
 {
     public Rect myRect;
+    public List<BaseNode> myNext;
     public string nodeName;
-    public string dialogo;
     public float duration;
     private bool _overNode;
-    public List<NodesExample> connected;
+    public bool panning;
 
-    public NodesExample(float x, float y, float width, float height, string name)
+    public BaseNode(string name)
     {
-        myRect = new Rect(x, y, width, height);
-        connected = new List<NodesExample>();
+        myRect = new Rect(0, 0, 200, 150);
         nodeName = name;
+        myNext = new List<BaseNode>();
     }
+
+    public virtual void IsActive() { }
+
+    public virtual void DrawNode(int id) { }
 
     public void CheckMouse(Event cE, Vector2 pan)
     {
@@ -25,6 +30,10 @@ public class NodesExample
         else
             _overNode = false;
     }
+
+    public virtual void ChangeColor() { }
+
+    public virtual void Padding() { }
 
     public bool OverNode
     { get { return _overNode; } }
