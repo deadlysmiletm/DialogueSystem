@@ -102,4 +102,47 @@ public static class NodeUtilities {
             }
         }
     }
+
+    public static void DeleteNode(NodeGraph graph, int nodeID)
+    {
+        if(graph != null)
+        {
+            if(graph.nodes.Count >= nodeID)
+            {
+                BaseNode deleteNode = graph.nodes[nodeID];
+                if(deleteNode != null)
+                {
+                    graph.nodes.RemoveAt(nodeID);
+                    GameObject.DestroyImmediate(deleteNode, true);
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                }
+            }
+        }
+    }
+
+    public static void DrawGrid(Rect viewRect, float gridSpacing, float gridOpacity, Color gridColor)
+    {
+        int widthDivs = Mathf.CeilToInt(viewRect.width / gridSpacing);
+        int heightDivs = Mathf.CeilToInt(viewRect.height / gridSpacing);
+
+        Handles.BeginGUI();
+
+        Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
+
+        for (int x = 0; x < widthDivs; x++)
+        {
+            Handles.DrawLine(new Vector3(gridSpacing * x, 0, 0), new Vector3(gridSpacing * x, viewRect.height, 0));
+        }
+
+        for (int y = 0; y < heightDivs; y++)
+        {
+            Handles.DrawLine(new Vector3(0, gridSpacing * y, 0), new Vector3(viewRect.width, gridSpacing * y, 0));
+        }
+
+        Handles.color = Color.white;
+        Handles.EndGUI();
+    }
+
+
 }

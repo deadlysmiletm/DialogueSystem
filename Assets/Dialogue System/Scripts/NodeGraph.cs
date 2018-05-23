@@ -102,6 +102,13 @@ public class NodeGraph : ScriptableObject {
                     }
                 }
             }
+            else
+            {
+                if(e.type == EventType.MouseDown)
+                {
+                    DeselectAllNodes();
+                }
+            }
         }
     }
 
@@ -117,9 +124,8 @@ public class NodeGraph : ScriptableObject {
     {
         Handles.BeginGUI();
         Handles.color = Color.white;
-        Handles.DrawLine(new Vector3(connectionNode.myRect.x + connectionNode.myRect.width + 24f,
-                                    connectionNode.myRect.y + (connectionNode.myRect.height * 0.5f), 0f),
-                                    new Vector3(mousePosition.x, mousePosition.y, 0f));
+        Handles.DrawLine(new Vector3(connectionNode.myRect.x + connectionNode.myRect.width + 24f, connectionNode.myRect.y + (connectionNode.myRect.height * 0.5f), 0f), new Vector3(mousePosition.x, mousePosition.y, 0f));
         Handles.EndGUI();
     }
+
 }

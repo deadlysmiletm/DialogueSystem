@@ -5,20 +5,21 @@ using UnityEditor;
 
 public class GraphView : ViewBase
 {
-    //Variables Public
-
-    //Variables Protected
     protected Vector2 mousePos;
+    int deleteNodeID = 0;
 
-    //Constructor
     public GraphView() : base("Graph View") {}
 
-    //Métodos principales
     public override void UpdateView(Rect editorRect, Rect precentageRect, Event e, NodeGraph currentGraph)
     {
         base.UpdateView(editorRect, precentageRect, e, currentGraph);
 
         GUI.Box(viewRect, viewTitle, viewSkin.GetStyle("ViewBG"));
+
+        NodeUtilities.DrawGrid(viewRect, 80f, 0.15f, Color.white);
+        NodeUtilities.DrawGrid(viewRect, 40f, 0.10f, Color.white);
+        NodeUtilities.DrawGrid(viewRect, 20f, 0.05f, Color.white);
+
 
         GUILayout.BeginArea(viewRect);
         if(currentGraph != null)
@@ -33,15 +34,11 @@ public class GraphView : ViewBase
     public override void ProcessEvents(Event e)
     {
         base.ProcessEvents(e);
-
+        Debug.Log(e.button);
         if (viewRect.Contains(e.mousePosition))
         {
             if(e.button == 1)
             {
-                if(e.type == EventType.MouseDown)
-                {
-                }
-
                 if(e.type == EventType.MouseDrag)
                 {
 
@@ -49,8 +46,29 @@ public class GraphView : ViewBase
 
                 if(e.type == EventType.MouseUp)
                 {
-                    ProcessContextMenu(e);
                     mousePos = e.mousePosition;
+
+                    bool overNode = false;
+                    deleteNodeID = 0;
+                    if(currentGraph != null)
+                    {
+                        if(currentGraph.nodes.Count > 0)
+                        {
+                            for (int i = 0; i < currentGraph.nodes.Count; i++)
+                            {
+                                if (currentGraph.nodes[i].myRect.Contains(mousePos))
+                                {
+                                    overNode = true;
+                                    deleteNodeID = i;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!overNode)
+                        ProcessContextMenu(e, 0);
+                    else
+                        ProcessContextMenu(e, 1);
                 }
             }
 
@@ -64,23 +82,33 @@ public class GraphView : ViewBase
     }
 
     //Métodos secundarios
-    void ProcessContextMenu(Event e)
+    void ProcessContextMenu(Event e, int contextID)
     {
         GenericMenu menu = new GenericMenu();
-        menu.AddItem(new GUIContent("Create Graph"), false, ContextCallBack, "0");
-        menu.AddItem(new GUIContent("Load Graph"), false, ContextCallBack, "1");
 
-        if(currentGraph != null)
+        if (contextID == 0)
         {
-            menu.AddSeparator("");
-            menu.AddItem(new GUIContent("Unload Graph"), false, ContextCallBack, "2");
+            menu.AddItem(new GUIContent("Create Graph"), false, ContextCallBack, "0");
+            menu.AddItem(new GUIContent("Load Graph"), false, ContextCallBack, "1");
 
-            menu.AddSeparator("");
-            menu.AddItem(new GUIContent("Add Dialogue Node"), false, ContextCallBack, "3");
-            menu.AddItem(new GUIContent("Add Question Node"), false, ContextCallBack, "4");
-            menu.AddItem(new GUIContent("Add Conditional Node"), false, ContextCallBack, "5");
+            if (currentGraph != null)
+            {
+                menu.AddSeparator("");
+                menu.AddItem(new GUIContent("Unload Graph"), false, ContextCallBack, "2");
 
+                menu.AddSeparator("");
+                menu.AddItem(new GUIContent("Add Dialogue Node"), false, ContextCallBack, "3");
+                menu.AddItem(new GUIContent("Add Question Node"), false, ContextCallBack, "4");
+                menu.AddItem(new GUIContent("Add Conditional Node"), false, ContextCallBack, "5");
+            }
+        }
 
+        if(contextID == 1)
+        {
+            if (currentGraph != null)
+            {
+                menu.AddItem(new GUIContent("Delete Node"), false, ContextCallBack, "6");
+            }
         }
 
         menu.ShowAsContext();
@@ -108,6 +136,9 @@ public class GraphView : ViewBase
                 break;
             case "5":
                 NodeUtilities.CreateNode(currentGraph, NodeType.Condicional, mousePos);
+                break;
+            case "6":
+                NodeUtilities.DeleteNode(currentGraph, deleteNodeID);
                 break;
             default:
                 break;

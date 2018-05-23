@@ -10,7 +10,6 @@ public class BaseNode : ScriptableObject
     public List<BaseNode> myNext;
     public string nodeName;
     public float duration;
-    private bool _overNode;
     public bool panning;
 
     public bool isSelected = false;
@@ -108,9 +107,13 @@ public class BaseNode : ScriptableObject
 
     void DrawInputLines()
     {
-        if (input.isOccupied)
+        if (input.isOccupied && input.inputNode != null)
         {
             DrawLine(input, 1f);
+        }
+        else
+        {
+            input.isOccupied = false;
         }
     }
 
@@ -118,37 +121,15 @@ public class BaseNode : ScriptableObject
     {
         Handles.BeginGUI();
         Handles.color = Color.white;
-        Handles.DrawLine(new Vector3(input.inputNode.myRect.x + input.inputNode.myRect.width + 24f, input.inputNode.myRect.y + (input.inputNode.myRect.height * 0.5f), 0f),
-                                        new Vector3(myRect.x - 24f, (myRect.y + (myRect.height * 0.5f) * inputID), 0f));
+        Handles.DrawLine(new Vector3(input.inputNode.myRect.x + input.inputNode.myRect.width + 24f, input.inputNode.myRect.y + (input.inputNode.myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (myRect.y + (myRect.height * 0.5f) * inputID), 0f));
 
         Handles.EndGUI();
     }
 
     public virtual void IsActive() { }
 
-    /*
-    public BaseNode(string name)
-    {
-        myRect = new Rect(0, 0, 200, 150);
-        nodeName = name;
-        myNext = new List<BaseNode>();
-    }
-
-
-    public virtual void DrawNode(int id) { }
-
-    public void CheckMouse(Event cE, Vector2 pan)
-    {
-        if (myRect.Contains(cE.mousePosition - pan))
-            _overNode = true;
-        else
-            _overNode = false;
-    }*/
-
     public virtual void ChangeColor() { }
 
     public virtual void Padding() { }
 
-    public bool OverNode
-    { get { return _overNode; } }
 }
