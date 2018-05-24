@@ -10,9 +10,12 @@ public class NodeGraph : ScriptableObject {
     public string graphName;
     public List<BaseNode> nodes;
     public BaseNode selectedNode;
-
     public bool wantsConnection = false;
     public BaseNode connectionNode;
+
+    public bool panningScreen;
+
+    public Vector2 offset;
 
     //Métodos principales
     private void OnEnable()
@@ -71,6 +74,27 @@ public class NodeGraph : ScriptableObject {
     //Métodos secundarios
     void ProcessEvents(Event e, Rect viewRect)
     {
+        if (e.button == 2)
+        {
+             if (e.type == EventType.MouseDown)
+             {
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    nodes[i].isPanning = true;
+                }
+             }
+             if(e.type == EventType.MouseDrag)
+                offset += e.delta;
+
+            else if (e.type == EventType.MouseUp)
+            {                
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    nodes[i].isPanning = false;
+                }
+            }
+        }
+
         if (viewRect.Contains(e.mousePosition))
         {
             if(e.button == 0)
@@ -92,8 +116,6 @@ public class NodeGraph : ScriptableObject {
                     if (!setNode)
                     {
                         DeselectAllNodes();
-                        //wantsConnection = false;
-                        //connectionNode = null;
                     }
 
                     if (wantsConnection)

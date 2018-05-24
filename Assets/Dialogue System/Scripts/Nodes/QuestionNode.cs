@@ -14,6 +14,16 @@ public class QuestionNode : BaseNode
         myRect = new Rect(10f, 10f, 110f, 55f);
     }
 
+    protected override void NodeStyle(GUISkin viewSkin)
+    {
+        if (!isSelected) {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("Question"));
+        }
+        else {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("QuestionSelected"));
+        }
+    }
+
     public override void UpdateNode(Event e, Rect viewRect)
     {
         base.UpdateNode(e, viewRect);

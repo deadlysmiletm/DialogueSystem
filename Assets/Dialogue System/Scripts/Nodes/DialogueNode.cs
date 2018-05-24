@@ -31,8 +31,6 @@ public class DialogueNode : BaseNode
     public override void UpdateNodeGUI(Event e, Rect viewRect, GUISkin viewSkin)
     {
         base.UpdateNodeGUI(e, viewRect, viewSkin);
-
-
     }
 
     

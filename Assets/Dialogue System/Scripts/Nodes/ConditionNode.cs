@@ -29,19 +29,12 @@ public class ConditionNode : BaseNode
         base.IsActive();
     }
 
-    /*
-    public void DrawNode()
-    {
-        GUI.backgroundColor = Color.blue;
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField(nodeName, GUILayout.Width(100));
-        EditorGUILayout.EndHorizontal();
+    protected override void NodeStyle(GUISkin viewSkin) {
+        if (!isSelected) {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("Condition"));
+        }
+        else {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("ConditionSelected"));
+        }
     }
-
-    public ConditionNode(string name) : base(name)
-    {
-
-    }
-    */
 }

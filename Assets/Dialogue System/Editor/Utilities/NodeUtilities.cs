@@ -84,6 +84,10 @@ public static class NodeUtilities {
                     currentNode = (QuestionNode)ScriptableObject.CreateInstance<QuestionNode>();
                     currentNode.nodeName = "Question Node";
                     break;
+                case NodeType.Answer:
+                    currentNode = (AnswerNode)ScriptableObject.CreateInstance<AnswerNode>();
+                    currentNode.nodeName = "Answer Node";
+                    break;
                 default:
                     break;
             }
@@ -121,15 +125,41 @@ public static class NodeUtilities {
         }
     }
 
-    public static void DrawGrid(Rect viewRect, float gridSpacing, float gridOpacity, Color gridColor)
+    public static void DisconnectInput(NodeGraph graph, int nodeID)
+    {
+        if (graph.nodes[nodeID] != null)
+        {
+            graph.nodes[nodeID].input.inputNode = null;
+            graph.nodes[nodeID].input.isOccupied = false;
+        }
+    }
+
+    public static void DisconnectOutput(NodeGraph graph, int nodeID)
+    {
+        if(graph.nodes[nodeID] != null)
+        {
+            graph.nodes[nodeID].output.outputNode = null;
+            graph.nodes[nodeID].output.isOccupied = false;
+        }
+
+    }
+
+    public static void DrawGrid(Rect viewRect, float gridSpacing, float gridOpacity, Color gridColor, NodeGraph currentGraph)
     {
         int widthDivs = Mathf.CeilToInt(viewRect.width / gridSpacing);
         int heightDivs = Mathf.CeilToInt(viewRect.height / gridSpacing);
 
+        Vector2 offset = Vector2.zero;
+
+        if(currentGraph != null)
+        {
+            offset = currentGraph.offset;
+        }
+
         Handles.BeginGUI();
 
         Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
-
+        
         for (int x = 0; x < widthDivs; x++)
         {
             Handles.DrawLine(new Vector3(gridSpacing * x, 0, 0), new Vector3(gridSpacing * x, viewRect.height, 0));

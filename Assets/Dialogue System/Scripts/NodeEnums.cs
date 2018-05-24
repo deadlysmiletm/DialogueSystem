@@ -7,4 +7,5 @@ public enum NodeType
     Dialogue,
     Question,
     Condicional,
+    Answer,
 }

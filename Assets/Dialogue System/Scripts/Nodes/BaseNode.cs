@@ -10,7 +10,7 @@ public class BaseNode : ScriptableObject
     public List<BaseNode> myNext;
     public string nodeName;
     public float duration;
-    public bool panning;
+    public bool isPanning;
 
     public bool isSelected = false;
     public NodeGraph parentGraph;
@@ -53,14 +53,8 @@ public class BaseNode : ScriptableObject
     public virtual void UpdateNodeGUI(Event e, Rect viewRect, GUISkin viewSkin)
     {
         ProcessEvent(e, viewRect);
-        if(!isSelected)
-        {
-            GUI.Box(myRect, nodeName, viewSkin.GetStyle("DefaultNode"));
-        }
-        else
-        {
-            GUI.Box(myRect, nodeName, viewSkin.GetStyle("NodeSelected"));
-        }
+
+        NodeStyle(viewSkin);
 
         EditorUtility.SetDirty(this);
 
@@ -90,6 +84,16 @@ public class BaseNode : ScriptableObject
     }
 #endif
 
+    protected virtual void NodeStyle(GUISkin viewSkin)
+    {
+        if (!isSelected) {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("DefaultNode"));
+        }
+        else {
+            GUI.Box(myRect, nodeName, viewSkin.GetStyle("NodeSelected"));
+        }
+    }
+
     void ProcessEvent(Event e, Rect viewRect)
     {
         if (isSelected)
@@ -102,6 +106,12 @@ public class BaseNode : ScriptableObject
                     myRect.y += e.delta.y;
                 }
             }
+        }
+
+        if (isPanning)
+        {
+            myRect.x += e.delta.x;
+            myRect.y += e.delta.y;
         }
     }
 
@@ -129,7 +139,5 @@ public class BaseNode : ScriptableObject
     public virtual void IsActive() { }
 
     public virtual void ChangeColor() { }
-
-    public virtual void Padding() { }
 
 }

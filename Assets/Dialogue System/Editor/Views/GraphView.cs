@@ -6,7 +6,7 @@ using UnityEditor;
 public class GraphView : ViewBase
 {
     protected Vector2 mousePos;
-    int deleteNodeID = 0;
+    int overNodeID = 0;
 
     public GraphView() : base("Graph View") {}
 
@@ -16,9 +16,12 @@ public class GraphView : ViewBase
 
         GUI.Box(viewRect, viewTitle, viewSkin.GetStyle("ViewBG"));
 
-        NodeUtilities.DrawGrid(viewRect, 80f, 0.15f, Color.white);
-        NodeUtilities.DrawGrid(viewRect, 40f, 0.10f, Color.white);
-        NodeUtilities.DrawGrid(viewRect, 20f, 0.05f, Color.white);
+        //Rect rect = currentGraph != null ? new Rect(new Vector2(-(float)Mathf.Infinity, -(float)Mathf.Infinity), new Vector2((float)Mathf.Infinity, (float)Mathf.Infinity)) : viewRect;
+        //Debug.Log("position "+ rect.position+", size " + rect.size);
+
+        NodeUtilities.DrawGrid(viewRect, 80f, 0.15f, Color.white, currentGraph);
+        NodeUtilities.DrawGrid(viewRect, 40f, 0.10f, Color.white, currentGraph);
+        NodeUtilities.DrawGrid(viewRect, 20f, 0.05f, Color.white, currentGraph);
 
 
         GUILayout.BeginArea(viewRect);
@@ -34,22 +37,16 @@ public class GraphView : ViewBase
     public override void ProcessEvents(Event e)
     {
         base.ProcessEvents(e);
-        Debug.Log(e.button);
         if (viewRect.Contains(e.mousePosition))
         {
             if(e.button == 1)
             {
-                if(e.type == EventType.MouseDrag)
-                {
-
-                }
-
                 if(e.type == EventType.MouseUp)
                 {
                     mousePos = e.mousePosition;
 
                     bool overNode = false;
-                    deleteNodeID = 0;
+                    overNodeID = 0;
                     if(currentGraph != null)
                     {
                         if(currentGraph.nodes.Count > 0)
@@ -59,7 +56,7 @@ public class GraphView : ViewBase
                                 if (currentGraph.nodes[i].myRect.Contains(mousePos))
                                 {
                                     overNode = true;
-                                    deleteNodeID = i;
+                                    overNodeID = i;
                                 }
                             }
                         }
@@ -100,6 +97,7 @@ public class GraphView : ViewBase
                 menu.AddItem(new GUIContent("Add Dialogue Node"), false, ContextCallBack, "3");
                 menu.AddItem(new GUIContent("Add Question Node"), false, ContextCallBack, "4");
                 menu.AddItem(new GUIContent("Add Conditional Node"), false, ContextCallBack, "5");
+                menu.AddItem(new GUIContent("Add Answerd Node"), false, ContextCallBack, "7");
             }
         }
 
@@ -108,6 +106,8 @@ public class GraphView : ViewBase
             if (currentGraph != null)
             {
                 menu.AddItem(new GUIContent("Delete Node"), false, ContextCallBack, "6");
+                menu.AddItem(new GUIContent("Disconnect Input"), false, ContextCallBack, "8");
+                //menu.AddItem(new GUIContent("Disconnect Output"), false, ContextCallBack, "9");
             }
         }
 
@@ -138,7 +138,13 @@ public class GraphView : ViewBase
                 NodeUtilities.CreateNode(currentGraph, NodeType.Condicional, mousePos);
                 break;
             case "6":
-                NodeUtilities.DeleteNode(currentGraph, deleteNodeID);
+                NodeUtilities.DeleteNode(currentGraph, overNodeID);
+                break;
+            case "7":
+                NodeUtilities.CreateNode(currentGraph, NodeType.Answer, mousePos);
+                break;
+            case "8":
+                NodeUtilities.DisconnectInput(currentGraph, overNodeID);
                 break;
             default:
                 break;
