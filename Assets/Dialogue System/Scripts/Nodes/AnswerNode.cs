@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class AnswerNode : BaseNode {
 
@@ -8,16 +9,10 @@ public class AnswerNode : BaseNode {
 
     public int current;
     public KeyCode myKey;
-    public NodeOutput output;
-
-    public AnswerNode()
-    {
-        output = new NodeOutput();
-    }
 
     public override void InitNode() {
         base.InitNode();
-        nodeType = NodeType.Dialogue;
+        nodeType = NodeType.Answer;
         myRect = new Rect(10f, 10f, 110f, 55f);
     }
 
@@ -25,8 +20,52 @@ public class AnswerNode : BaseNode {
         base.UpdateNode(e, viewRect);
     }
 
-    public override void UpdateNodeGUI(Event e, Rect viewRect, GUISkin viewSkin) {
+    public override void UpdateNodeGUI(Event e, Rect viewRect, GUISkin viewSkin)
+    {
         base.UpdateNodeGUI(e, viewRect, viewSkin);
+    }
+
+    protected override void InputDefinition(GUISkin viewSkin)
+    {
+        if (GUI.Button(new Rect(myRect.x - 24f, myRect.y + (myRect.height * 0.5f) - 12f, 24f, 24f), "", viewSkin.GetStyle("NodeInput")))
+        {
+            if (parentGraph != null)
+            {
+                if (ApproveConnection())
+                {
+                    QuestionNode connectionNode = (QuestionNode)parentGraph.connectionNode;
+
+                    input.inputNode.Add(connectionNode);
+                    input.hasSomething = input.inputNode != null ? true : false;
+
+                    if (!connectionNode.output.outputNode.Contains(this))
+                    {
+                        connectionNode.output.outputNode.Add(this);
+
+                        connectionNode.output.hasSomething = connectionNode.output.outputNode.Count > 0 ? true : false;
+                    }
+
+                    parentGraph.wantsConnection = false;
+                    parentGraph.connectionNode = null;
+                }
+                else
+                {
+                    input.hasSomething = input.inputNode != null ? true : false;
+
+                    parentGraph.wantsConnection = false;
+                    parentGraph.connectionNode = null;
+                }
+
+            }
+        }
+    }
+
+    protected override bool ApproveConnection()
+    {
+        if (parentGraph.connectionNode.nodeType == NodeType.Question)
+            return true;
+        else
+            return false;
     }
 
 
@@ -42,5 +81,22 @@ public class AnswerNode : BaseNode {
         else {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("AnswerSelected"));
         }
+    }
+
+    protected override void DrawLine(NodeInput input, float inputID)
+    {
+        Handles.BeginGUI();
+        Handles.color = Color.white;
+
+
+        for (int i = 0; i < input.inputNode.Count; i++)
+        {
+            QuestionNode output = (QuestionNode)input.inputNode[i];
+            int outputID = output.output.outputNode.IndexOf(this);
+
+            Handles.DrawLine(new Vector3(input.inputNode[i].myRect.x + input.inputNode[i].myRect.width + 24f, input.inputNode[i].myRect.y + (input.inputNode[i].myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (output.output.outputNode[outputID].myRect.y + (output.output.outputNode[outputID].myRect.height * 0.5f) * inputID), 0f));
+        }
+
+        Handles.EndGUI();
     }
 }

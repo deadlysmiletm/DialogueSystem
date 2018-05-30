@@ -68,7 +68,6 @@ public class NodePropertyView : ViewBase
         if (GUILayout.Button("Add parameter"))
         {
             allParameters.Add("");
-            Debug.Log("agrego");
         }
         if (allParameters.Count > 0) {
             if (GUILayout.Button("Remove parameter"))
@@ -89,7 +88,6 @@ public class NodePropertyView : ViewBase
                 EditorGUILayout.EndHorizontal();
             }
         }
-        Debug.Log(allParameters.Count);
         EditorGUILayout.EndVertical();
 
         GUILayout.EndArea();

@@ -9,12 +9,6 @@ public class DialogueNode : BaseNode
     public List<string> Dialogues = new List<string>();
     public int current;
     public KeyCode myKey;
-    public NodeOutput output;
-
-    public DialogueNode()
-    {
-        output = new NodeOutput();
-    }
 
     public override void InitNode()
     {
@@ -43,27 +37,9 @@ public class DialogueNode : BaseNode
                 current++;
             else
             {
-                CurrentNode.actualNode = myNext[0];
+                CurrentNode.actualNode = output.outputNode;
             }
-    }/*
-
-    public override void DrawNode(int id)
-    {
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField(nodeName, GUILayout.Width(100));
-        EditorGUILayout.EndHorizontal();
-
-
-        ChangeColor();
     }
-
-    //Dibujo el nodo de dialogo.
-    public DialogueNode(string name) : base(name)
-    {
-
-    }
-    */
 
     public override void ChangeColor()
     {

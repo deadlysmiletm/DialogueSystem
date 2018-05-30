@@ -98,6 +98,7 @@ public class GraphView : ViewBase
                 menu.AddItem(new GUIContent("Add Question Node"), false, ContextCallBack, "4");
                 menu.AddItem(new GUIContent("Add Conditional Node"), false, ContextCallBack, "5");
                 menu.AddItem(new GUIContent("Add Answerd Node"), false, ContextCallBack, "7");
+                menu.AddItem(new GUIContent("Add Delay Node"), false, ContextCallBack, "10");
             }
         }
 
@@ -107,7 +108,7 @@ public class GraphView : ViewBase
             {
                 menu.AddItem(new GUIContent("Delete Node"), false, ContextCallBack, "6");
                 menu.AddItem(new GUIContent("Disconnect Input"), false, ContextCallBack, "8");
-                //menu.AddItem(new GUIContent("Disconnect Output"), false, ContextCallBack, "9");
+                menu.AddItem(new GUIContent("Disconnect Output"), false, ContextCallBack, "9");
             }
         }
 
@@ -145,6 +146,12 @@ public class GraphView : ViewBase
                 break;
             case "8":
                 NodeUtilities.DisconnectInput(currentGraph, overNodeID);
+                break;
+            case "9":
+                NodeUtilities.DisconnectOutput(currentGraph, overNodeID);
+                break;
+            case "10":
+                NodeUtilities.CreateNode(currentGraph, NodeType.Delay, mousePos);
                 break;
             default:
                 break;

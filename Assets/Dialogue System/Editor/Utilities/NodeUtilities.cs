@@ -88,6 +88,10 @@ public static class NodeUtilities {
                     currentNode = (AnswerNode)ScriptableObject.CreateInstance<AnswerNode>();
                     currentNode.nodeName = "Answer Node";
                     break;
+                case NodeType.Delay:
+                    currentNode = (DelayNode)ScriptableObject.CreateInstance<DelayNode>();
+                    currentNode.nodeName = "Delay Node";
+                    break;
                 default:
                     break;
             }
@@ -114,8 +118,48 @@ public static class NodeUtilities {
             if(graph.nodes.Count >= nodeID)
             {
                 BaseNode deleteNode = graph.nodes[nodeID];
+
                 if(deleteNode != null)
                 {
+                    if (deleteNode.nodeType == NodeType.Answer)
+                    {
+                        for (int i = 0; i < deleteNode.input.inputNode.Count; i++)
+                        {
+                            QuestionNode questionNode = (QuestionNode)deleteNode.input.inputNode[i];
+
+                            questionNode.output.outputNode.Remove(graph.nodes[nodeID]);
+                            questionNode.output.hasSomething = questionNode.output.outputNode.Count == 0 ? false : true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log(deleteNode.nodeName + " " + deleteNode.input.inputNode.Count);
+                        for (int i = 0; i < deleteNode.input.inputNode.Count; i++)
+                        {
+                            deleteNode.input.inputNode[i].output.outputNode = null;
+                            deleteNode.input.inputNode[i].output.isOccupied = false;
+                        }
+                    }
+
+                    if (deleteNode.nodeType == NodeType.Question)
+                    {
+                        QuestionNode questionNode = (QuestionNode)deleteNode;
+
+                        for (int i = 0; i < questionNode.output.outputNode.Count; i++)
+                        {
+                            questionNode.output.outputNode[i].input.inputNode.Remove(questionNode);
+                            questionNode.output.outputNode[i].input.hasSomething = questionNode.output.outputNode[i].input.inputNode.Count > 0 ? true : false;
+                        }
+                    }
+                    else
+                    {
+                        if (deleteNode.output.outputNode != null)
+                        {
+                            deleteNode.output.outputNode.input.inputNode.Remove(deleteNode);
+                            deleteNode.output.outputNode.input.hasSomething = deleteNode.output.outputNode.input.inputNode.Count > 0 ? true : false;
+                        }
+                    }
+
                     graph.nodes.RemoveAt(nodeID);
                     GameObject.DestroyImmediate(deleteNode, true);
                     AssetDatabase.SaveAssets();
@@ -129,8 +173,28 @@ public static class NodeUtilities {
     {
         if (graph.nodes[nodeID] != null)
         {
-            graph.nodes[nodeID].input.inputNode = null;
-            graph.nodes[nodeID].input.isOccupied = false;
+            Debug.Log(graph.nodes[nodeID].nodeType.ToString());
+            if (graph.nodes[nodeID].nodeType == NodeType.Answer)
+            {
+                for (int i = 0; i < graph.nodes[nodeID].input.inputNode.Count; i++)
+                {
+                    QuestionNode questionNode = (QuestionNode)graph.nodes[nodeID].input.inputNode[i];
+
+                    questionNode.output.outputNode.RemoveAt(questionNode.output.outputNode.IndexOf(graph.nodes[nodeID]));
+                    questionNode.output.hasSomething = questionNode.output.outputNode.Count == 0 ? false : true;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < graph.nodes[nodeID].input.inputNode.Count; i++)
+                {
+                    graph.nodes[nodeID].input.inputNode[i].output.outputNode = null;
+                    graph.nodes[nodeID].input.inputNode[i].output.isOccupied = false;
+                }
+            }
+
+            graph.nodes[nodeID].input.inputNode = new List<BaseNode>();
+            graph.nodes[nodeID].input.hasSomething = false;
         }
     }
 
@@ -138,8 +202,36 @@ public static class NodeUtilities {
     {
         if(graph.nodes[nodeID] != null)
         {
-            graph.nodes[nodeID].output.outputNode = null;
-            graph.nodes[nodeID].output.isOccupied = false;
+            if (graph.nodes[nodeID].nodeType == NodeType.Question)
+            {
+                QuestionNode multiNode = (QuestionNode)graph.nodes[nodeID];
+
+                if (multiNode.output.hasSomething)
+                {
+                    for (int i = 0; i < multiNode.output.outputNode.Count; i++)
+                    {
+                        multiNode.output.outputNode[i].input.inputNode.Remove(multiNode);
+
+                        multiNode.output.outputNode[i].input.hasSomething = multiNode.output.outputNode[i].input.inputNode.Count > 0 ? true : false;
+                    }
+
+                    multiNode.output.outputNode = new List<BaseNode>();
+                    multiNode.output.hasSomething = false;
+                }
+            }
+            else
+            {
+                if (graph.nodes[nodeID].output.outputNode != null)
+                {
+                    graph.nodes[nodeID].output.outputNode.input.inputNode.Remove(graph.nodes[nodeID]);
+                    graph.nodes[nodeID].output.outputNode.input.hasSomething = graph.nodes[nodeID].output.outputNode.input.inputNode.Count > 0 ? true : false;
+
+                    graph.nodes[nodeID].output.outputNode = null;
+                    graph.nodes[nodeID].output.isOccupied = false;
+                }
+            }
+
+
         }
 
     }

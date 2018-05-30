@@ -1,43 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [System.Serializable]
-public class QuestionNode : BaseNode
-{
+public class DelayNode : BaseNode {
 
-    public MultiNodeOutput output;
-
-    [System.Serializable]
-    public class MultiNodeOutput
-    {
-        public bool hasSomething;
-        public List<BaseNode> outputNode;
-    }
-
-    public QuestionNode()
-    {
-        input = new NodeInput();
-        output = new MultiNodeOutput();
-
-        output.outputNode = new List<BaseNode>();
-        input.inputNode = new List<BaseNode>();
-    }
+    public float delay;
+    private float _delay;
 
     public override void InitNode()
     {
         base.InitNode();
-        nodeType = NodeType.Question;
+        nodeType = NodeType.Delay;
         myRect = new Rect(10f, 10f, 110f, 55f);
+        _delay = delay;
     }
 
     protected override void NodeStyle(GUISkin viewSkin)
     {
-        if (!isSelected) {
+        if (!isSelected)
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("Question"));
         }
-        else {
+        else
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("QuestionSelected"));
         }
     }
@@ -54,7 +40,14 @@ public class QuestionNode : BaseNode
 
     public override void IsActive()
     {
-        base.IsActive();
+        if(_delay > 0)
+        {
+            _delay -= Time.deltaTime;
+        }
+        else
+        {
+            _delay = delay;
+            CurrentNode.actualNode = output.outputNode;
+        }
     }
-
 }

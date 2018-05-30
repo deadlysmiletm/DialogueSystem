@@ -8,4 +8,7 @@ public enum NodeType
     Question,
     Condicional,
     Answer,
+    Start,
+    End,
+    Delay,
 }

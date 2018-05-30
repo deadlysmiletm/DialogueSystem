@@ -1,43 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [System.Serializable]
-public class QuestionNode : BaseNode
-{
+public class EndNode : BaseNode {
 
-    public MultiNodeOutput output;
-
-    [System.Serializable]
-    public class MultiNodeOutput
-    {
-        public bool hasSomething;
-        public List<BaseNode> outputNode;
-    }
-
-    public QuestionNode()
+    public EndNode()
     {
         input = new NodeInput();
-        output = new MultiNodeOutput();
 
-        output.outputNode = new List<BaseNode>();
         input.inputNode = new List<BaseNode>();
     }
 
     public override void InitNode()
     {
         base.InitNode();
-        nodeType = NodeType.Question;
+        nodeType = NodeType.End;
         myRect = new Rect(10f, 10f, 110f, 55f);
     }
 
     protected override void NodeStyle(GUISkin viewSkin)
     {
-        if (!isSelected) {
+        if (!isSelected)
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("Question"));
         }
-        else {
+        else
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("QuestionSelected"));
         }
     }
@@ -52,9 +41,11 @@ public class QuestionNode : BaseNode
         base.UpdateNodeGUI(e, viewRect, viewSkin);
     }
 
+    protected override void OutputDefinition(GUISkin viewSkin) {}
+
     public override void IsActive()
     {
-        base.IsActive();
+        CurrentNode.actualNode = null;
+        CurrentNode.endBehaviour = true;
     }
-
 }

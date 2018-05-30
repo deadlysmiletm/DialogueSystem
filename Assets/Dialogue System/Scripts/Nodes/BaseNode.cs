@@ -20,12 +20,14 @@ public class BaseNode : ScriptableObject
 
     protected GUISkin nodeSkin;
 
+    [System.Serializable]
     public class NodeInput
     {
-        public bool isOccupied = false;
-        public BaseNode inputNode;
+        public bool hasSomething = false;
+        public List<BaseNode> inputNode;
     }
 
+    [System.Serializable]
     public class NodeOutput
     {
         public bool isOccupied = false;
@@ -36,12 +38,11 @@ public class BaseNode : ScriptableObject
     {
         input = new NodeInput();
         output = new NodeOutput();
+
+        input.inputNode = new List<BaseNode>();
     }
 
-    public virtual void InitNode()
-    {
-
-    }
+    public virtual void InitNode() {}
 
     public virtual void UpdateNode(Event e, Rect viewRect)
     {
@@ -58,18 +59,62 @@ public class BaseNode : ScriptableObject
 
         EditorUtility.SetDirty(this);
 
+        InputDefinition(viewSkin);
+
+        OutputDefinition(viewSkin);
+
+        DrawInputLines();
+    }
+#endif
+
+    protected virtual void InputDefinition(GUISkin viewSkin)
+    {
         if (GUI.Button(new Rect(myRect.x - 24f, myRect.y + (myRect.height * 0.5f) - 12f, 24f, 24f), "", viewSkin.GetStyle("NodeInput")))
         {
-            if(parentGraph != null)
+            if (parentGraph != null)
             {
-                input.inputNode = parentGraph.connectionNode;
-                input.isOccupied = input.inputNode != null ? true : false;
+                if (ApproveConnection())
+                {
+                    if (parentGraph.connectionNode.output.isOccupied)
+                    {
+                        parentGraph.connectionNode.output.outputNode.input.inputNode.Remove(parentGraph.connectionNode);
+                    }
 
-                parentGraph.wantsConnection = false;
-                parentGraph.connectionNode = null;
+                    Debug.Log(parentGraph.connectionNode.nodeName);
+
+                    input.inputNode.Add(parentGraph.connectionNode);
+                    input.hasSomething = input.inputNode.Count > 0 ? true : false;
+
+                    if (parentGraph.connectionNode.nodeType == NodeType.Question)
+                    {
+                        QuestionNode connectionNode = (QuestionNode)parentGraph.connectionNode;
+
+                        connectionNode.output.outputNode.Add(this);
+                        connectionNode.output.hasSomething = true;
+                    }
+                    else
+                    {
+                        parentGraph.connectionNode.output.outputNode = this;
+                        parentGraph.connectionNode.output.isOccupied = true;
+                    }
+
+                    parentGraph.wantsConnection = false;
+                    parentGraph.connectionNode = null;
+                }
+                else
+                {
+                    input.hasSomething = input.inputNode != null ? true : false;
+
+                    parentGraph.wantsConnection = false;
+                    parentGraph.connectionNode = null;
+                }
+
             }
         }
+    }
 
+    protected virtual void OutputDefinition(GUISkin viewSkin)
+    {
         if (GUI.Button(new Rect(myRect.x + myRect.width, myRect.y + (myRect.height * 0.5f) - 12f, 24f, 24f), " ", viewSkin.GetStyle("NodeOutput")))
         {
             if (parentGraph != null)
@@ -78,11 +123,20 @@ public class BaseNode : ScriptableObject
                 parentGraph.connectionNode = this;
             }
         }
-
-        DrawInputLines();
-
     }
-#endif
+
+    protected virtual bool ApproveConnection()
+    {
+        if (parentGraph.connectionNode != null)
+        {
+            if (parentGraph.connectionNode.nodeType == NodeType.Question)
+                return false;
+            else
+                return true;
+        }
+        else
+            return false;
+    }
 
     protected virtual void NodeStyle(GUISkin viewSkin)
     {
@@ -117,21 +171,25 @@ public class BaseNode : ScriptableObject
 
     void DrawInputLines()
     {
-        if (input.isOccupied && input.inputNode != null)
+        if (input.hasSomething && input.inputNode != null)
         {
             DrawLine(input, 1f);
         }
         else
         {
-            input.isOccupied = false;
+            input.hasSomething = false;
         }
     }
 
-    void DrawLine(NodeInput input, float inputID)
+    protected virtual void DrawLine(NodeInput input, float inputID)
     {
         Handles.BeginGUI();
         Handles.color = Color.white;
-        Handles.DrawLine(new Vector3(input.inputNode.myRect.x + input.inputNode.myRect.width + 24f, input.inputNode.myRect.y + (input.inputNode.myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (myRect.y + (myRect.height * 0.5f) * inputID), 0f));
+
+        for (int i = 0; i < input.inputNode.Count; i++)
+        {
+            Handles.DrawLine(new Vector3(input.inputNode[i].myRect.x + input.inputNode[i].myRect.width + 24f, input.inputNode[i].myRect.y + (input.inputNode[i].myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (input.inputNode[i].output.outputNode.myRect.y + (input.inputNode[i].output.outputNode.myRect.height * 0.5f) * inputID), 0f));
+        }
 
         Handles.EndGUI();
     }
