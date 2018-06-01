@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49758f5f194a5af4fbe59b84f23ed193, type: 3}
+  m_Name: asd
+  m_EditorClassIdentifier: 
+  graphName: asd
+  nodes:
+  - {fileID: 114582113491007672}
+  - {fileID: 114586977089293318}
+  - {fileID: 114485983405391192}
+  - {fileID: 114705993386428780}
+  - {fileID: 114627961569088284}
+  - {fileID: 114009679445813502}
+  - {fileID: 114265740424982424}
+  - {fileID: 114904693261875102}
+  - {fileID: 114287696812868560}
+  selectedNode: {fileID: 114485983405391192}
+  wantsConnection: 0
+  connectionNode: {fileID: 0}
+  panningScreen: 0
+  offset: {x: -15, y: 38}
+--- !u!114 &114009679445813502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 471
+    y: 323
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Answer Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 3
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114485983405391192}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  answer: 
+  current: 0
+  myKey: 0
+--- !u!114 &114265740424982424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8330b6a1238a0a448a5a15103a23e8a, type: 3}
+  m_Name: Delay Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 363
+    y: 432
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Delay Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 6
+  input:
+    hasSomething: 1
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  delay: 0
+--- !u!114 &114287696812868560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ce79728ee5d6f40a41c9122486d1cb, type: 3}
+  m_Name: Conditional Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: -7
+    y: 310
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Conditional Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 2
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114904693261875102}
+--- !u!114 &114485983405391192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3195d4eb692f58245a3451a58e998edf, type: 3}
+  m_Name: Question Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 235
+    y: 154
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Question Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 1
+  input:
+    hasSomething: 1
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  output:
+    hasSomething: 1
+    outputNode:
+    - {fileID: 114705993386428780}
+    - {fileID: 114627961569088284}
+    - {fileID: 114009679445813502}
+--- !u!114 &114582113491007672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b704313d65c7e48b7d809d3f19e708, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: -9
+    y: 112
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Start
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 4
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114904693261875102}
+--- !u!114 &114586977089293318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0084178df20c4094590219b3579acea9, type: 3}
+  m_Name: End
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 582
+    y: 419
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: End
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 5
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114904693261875102}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+--- !u!114 &114627961569088284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 456
+    y: 191
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Answer Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 3
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114485983405391192}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  answer: 
+  current: 0
+  myKey: 0
+--- !u!114 &114705993386428780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 434
+    y: 69
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Answer Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 3
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114485983405391192}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  answer: 
+  current: 0
+  myKey: 0
+--- !u!114 &114904693261875102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 212
+    y: 277
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114582113491007672}
+    - {fileID: 114287696812868560}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114586977089293318}
+  Dialogues: []
+  current: 0
+  myKey: 0

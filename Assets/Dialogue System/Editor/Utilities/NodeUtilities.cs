@@ -23,6 +23,9 @@ public static class NodeUtilities {
             {
                 currentWindow.currentGraph = currentGraph;
             }
+
+            CreateNode(currentWindow.currentGraph, NodeType.Start, new Vector2(104, 136));
+            CreateNode(currentWindow.currentGraph, NodeType.End, new Vector2(307, 136));
         }
         else
         {
@@ -91,6 +94,14 @@ public static class NodeUtilities {
                 case NodeType.Delay:
                     currentNode = (DelayNode)ScriptableObject.CreateInstance<DelayNode>();
                     currentNode.nodeName = "Delay Node";
+                    break;
+                case NodeType.Start:
+                    currentNode = (StartNode)ScriptableObject.CreateInstance<StartNode>();
+                    currentNode.nodeName = "Start";
+                    break;
+                case NodeType.End:
+                    currentNode = (EndNode)ScriptableObject.CreateInstance<EndNode>();
+                    currentNode.nodeName = "End";
                     break;
                 default:
                     break;
@@ -238,8 +249,8 @@ public static class NodeUtilities {
 
     public static void DrawGrid(Rect viewRect, float gridSpacing, float gridOpacity, Color gridColor, NodeGraph currentGraph)
     {
-        int widthDivs = Mathf.CeilToInt(viewRect.width / gridSpacing);
-        int heightDivs = Mathf.CeilToInt(viewRect.height / gridSpacing);
+        int widthDivs = Mathf.CeilToInt(10000 / gridSpacing);
+        int heightDivs = Mathf.CeilToInt(10000 / gridSpacing);
 
         Vector2 offset = Vector2.zero;
 
@@ -252,14 +263,14 @@ public static class NodeUtilities {
 
         Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
         
-        for (int x = 0; x < widthDivs; x++)
+        for (int x = -widthDivs; x < widthDivs; x++)
         {
-            Handles.DrawLine(new Vector3(gridSpacing * x, 0, 0), new Vector3(gridSpacing * x, viewRect.height, 0));
+            Handles.DrawLine(new Vector3((gridSpacing * x) + offset.x, 0, 0), new Vector3((gridSpacing * x) + offset.x, viewRect.height, 0));
         }
 
-        for (int y = 0; y < heightDivs; y++)
+        for (int y = -heightDivs; y < heightDivs; y++)
         {
-            Handles.DrawLine(new Vector3(0, gridSpacing * y, 0), new Vector3(viewRect.width, gridSpacing * y, 0));
+            Handles.DrawLine(new Vector3(0, (gridSpacing * y) + offset.y, 0), new Vector3(viewRect.width, (gridSpacing * y) + offset.y, 0));
         }
 
         Handles.color = Color.white;
