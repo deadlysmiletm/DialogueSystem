@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class BaseNode : ScriptableObject
 {
+    public DialogueBehaviour behaviour;
+
     public Rect myRect;
     public List<BaseNode> myNext;
     public string nodeName;

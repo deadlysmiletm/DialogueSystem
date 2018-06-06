@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class AnswerNode : BaseNode {
 
-    public string answer;
+    public Button answer;
+    public Vector2 buttonPosition;
 
-    public int current;
+    //Uso exclusivo por parte del QuestionNode
+    public int index;
+
     public KeyCode myKey;
 
     public override void InitNode() {
@@ -71,7 +75,7 @@ public class AnswerNode : BaseNode {
 
     public override void IsActive()
     {
-
+        behaviour.ChangeNode(output.outputNode);
     }
 
     protected override void NodeStyle(GUISkin viewSkin) {

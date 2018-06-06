@@ -16,6 +16,17 @@ public class CurrentNode : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        actualNode.IsActive();
+        if(!endBehaviour)
+            actualNode.IsActive();
 	}
+
+    public static void EndBehaviour()
+    {
+        endBehaviour = true;
+    }
+
+    public static void StartBehaviour()
+    {
+        endBehaviour = false;
+    }
 }

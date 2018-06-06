@@ -65,7 +65,14 @@ public class GraphView : ViewBase
                     if (!overNode)
                         ProcessContextMenu(e, 0);
                     else
-                        ProcessContextMenu(e, 1);
+                    {
+                        if (currentGraph.nodes[overNodeID].nodeType == NodeType.Start)
+                            ProcessContextMenu(e, 2);
+                        else if (currentGraph.nodes[overNodeID].nodeType == NodeType.End)
+                            ProcessContextMenu(e, 3);
+                        else
+                            ProcessContextMenu(e, 1);
+                    }
                 }
             }
 
@@ -109,6 +116,20 @@ public class GraphView : ViewBase
                 menu.AddItem(new GUIContent("Delete Node"), false, ContextCallBack, "6");
                 menu.AddItem(new GUIContent("Disconnect Input"), false, ContextCallBack, "8");
                 menu.AddItem(new GUIContent("Disconnect Output"), false, ContextCallBack, "9");
+            }
+        }
+        if(contextID == 2)
+        {
+            if(currentGraph != null)
+            {
+                menu.AddItem(new GUIContent("Disconnect Output"), false, ContextCallBack, "9");
+            }
+        }
+        if(contextID == 3)
+        {
+            if(currentGraph != null)
+            {
+                menu.AddItem(new GUIContent("Disconnect Input"), false, ContextCallBack, "8");
             }
         }
 
