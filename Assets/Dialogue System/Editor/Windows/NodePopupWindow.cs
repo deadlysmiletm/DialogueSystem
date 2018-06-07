@@ -55,6 +55,4 @@ public class NodePopupWindow : EditorWindow {
         GUILayout.Space(20);
     }
 
-    //Métodos secundarios
-
 }
