@@ -65,11 +65,11 @@ public class QuestionNode : BaseNode
         {
             var temp = (AnswerNode)node;
 
-            temp.answer = behaviour.TakePool();
+            temp.answerButton = behaviour.TakePool();
 
-            temp.answer.GetComponent<RectTransform>().position = temp.buttonPosition;
-            temp.answer.GetComponentInChildren<Text>().text = nodeName;
-            temp.answer.onClick.AddListener(delegate { SelectAnswer(output.outputNode.IndexOf(node)); });
+            temp.answerButton.GetComponent<RectTransform>().position = temp.buttonPosition;
+            temp.answerButton.GetComponentInChildren<Text>().text = temp.answer;
+            temp.answerButton.onClick.AddListener(delegate { SelectAnswer(output.outputNode.IndexOf(node)); });
         }
 
         _initialized = true;
@@ -84,8 +84,8 @@ public class QuestionNode : BaseNode
         {
             var temp = (AnswerNode)answers;
 
-            behaviour.ReturnPool(temp.answer);
-            temp.answer = null;
+            behaviour.ReturnPool(temp.answerButton);
+            temp.answerButton = null;
         }
 
         behaviour.ChangeNode(nodeSeleceted);

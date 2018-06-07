@@ -51,6 +51,14 @@ public class NodePropertyView : ViewBase
     public override void UpdateView(Rect editorRect, Rect precentageRect, Event e, NodeGraph currentGraph)
     {
         base.UpdateView(editorRect, precentageRect, e, currentGraph);
+        if (currentGraph!= null)
+        {
+            if (currentGraph.selectedNode)
+            {
+                viewTitle = currentGraph.selectedNode.nodeName;
+            }
+        }
+        
 
         GUI.Box(viewRect, viewTitle, viewSkin.GetStyle("ViewBG"));
 
@@ -65,7 +73,7 @@ public class NodePropertyView : ViewBase
         EditorGUILayout.Space();
 
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Add parameter"))
+        /*if (GUILayout.Button("Add parameter"))
         {
             allParameters.Add("");
         }
@@ -73,21 +81,57 @@ public class NodePropertyView : ViewBase
             if (GUILayout.Button("Remove parameter"))
                 allParameters.RemoveAt(allParameters.Count - 1);
                 //Repaint();
-        }
+        }*/
 
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.LabelField("My paramters", myStyleSmall);
 
         EditorGUILayout.BeginVertical();
-        if (allParameters != null) {
-            for (int i = 0; i < allParameters.Count; i++) {
-                EditorGUILayout.BeginHorizontal();
-                //MyParams = 
-                allParameters[i] = EditorGUILayout.TextField(allParameters[i]);
-                EditorGUILayout.EndHorizontal();
+        /* if (allParameters != null) {
+             for (int i = 0; i < allParameters.Count; i++) {
+                 EditorGUILayout.BeginHorizontal();
+                 //MyParams = 
+                 allParameters[i] = EditorGUILayout.TextField(allParameters[i]);
+                 EditorGUILayout.EndHorizontal();
+             }
+         }*/
+
+        if (currentGraph!=null && currentGraph.selectedNode!= null)
+        {
+            if (currentGraph.selectedNode.nodeType == NodeType.Answer)
+            {
+                currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
+                var myAnser = (AnswerNode)currentGraph.selectedNode;
+                myAnser.answer = EditorGUILayout.TextField("Answer", myAnser.answer);
             }
+            if (currentGraph.selectedNode.nodeType == NodeType.Condicional)
+            {
+                currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
+                //var myCond = (ConditionNode)currentGraph.selectedNode;
+
+            }
+            if (currentGraph.selectedNode.nodeType == NodeType.Delay)
+            {
+                currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
+                var myDel = (DelayNode)currentGraph.selectedNode;
+                myDel.delay = EditorGUILayout.FloatField("Delay", myDel.delay);
+            }
+            if (currentGraph.selectedNode.nodeType == NodeType.Dialogue)
+            {
+                currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
+                var myDiag = (DialogueNode)currentGraph.selectedNode;
+                myDiag.dialogue =EditorGUILayout.TextField("Dialogue",myDiag.dialogue);
+            }
+            if (currentGraph.selectedNode.nodeType == NodeType.Question)
+            {
+                currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
+                //var myQue = (QuestionNode)currentGraph.selectedNode;
+                //myQue.Dialogues = EditorGUILayout.TextField("Question", myQue.Dialogues);
+            }
+
         }
+
         EditorGUILayout.EndVertical();
 
         GUILayout.EndArea();

@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224321555427092530}
+  - component: {fileID: 114171650262510480}
   m_Layer: 5
   m_Name: DialogueContainer
   m_TagString: Untagged
@@ -60,6 +61,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114171650262510480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999492919799596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d32225aa212ce4ea6528b35d71b5d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000, guid: df45e44d812439140acf1b7c6b532152, type: 2}
+  buttonPrefab: {fileID: 114714029652223300, guid: 9809e026e406cdd4e8794210aaa5b04c,
+    type: 2}
 --- !u!114 &114187112576560116
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class ContainerPopupWindow : EditorWindow {
     //Variables
     static ContainerPopupWindow containerPopup;
     public string containerName = "Enter a name...";
+    private GameObject _canvas;
     private GameObject _prefab;
 
     //Métodos principales
@@ -15,6 +16,7 @@ public class ContainerPopupWindow : EditorWindow {
     {
         containerPopup = (ContainerPopupWindow)EditorWindow.GetWindow<ContainerPopupWindow>();
         containerPopup.titleContent = new GUIContent("Conteiner Popup");
+        containerPopup._prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Dialogue System/Resources/Prefab/DialogueContainer.asset", typeof(GameObject));
     }
 
     private void OnGUI()
@@ -32,19 +34,20 @@ public class ContainerPopupWindow : EditorWindow {
 
         EditorGUI.BeginChangeCheck();
         _prefab = (GameObject)EditorGUILayout.ObjectField("Container Prefab", _prefab, typeof(GameObject), true);
+        _canvas = (GameObject)EditorGUILayout.ObjectField("Canvas:", _canvas, typeof(GameObject), true);
         if (EditorGUI.EndChangeCheck())
             Repaint();
 
         GUILayout.Space(10);
 
-        if (_prefab != null)
+        if (_prefab != null && _canvas != null)
         {
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Create Dialogue Container", GUILayout.Height(40)))
             {
                 if (!string.IsNullOrEmpty(containerName) && containerName != "Enter a name...")
                 {
-                    NodeUtilities.CreateContainer(_prefab);
+                    NodeUtilities.CreateContainer(_prefab, _canvas, containerName);
                     containerPopup.Close();
                 }
                 else
@@ -58,6 +61,8 @@ public class ContainerPopupWindow : EditorWindow {
             }
             GUILayout.EndHorizontal();
         }
+        else if (_canvas = null)
+            EditorGUILayout.HelpBox("The canvas can't be null.", MessageType.Error);
         else
         {
             EditorGUILayout.HelpBox("The Container prefab can't be null.", MessageType.Error);

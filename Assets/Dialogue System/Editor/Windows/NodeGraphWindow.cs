@@ -11,6 +11,7 @@ public class NodeGraphWindow : EditorWindow {
 
     public NodePropertyView propertyView;
     public GraphView graphView;
+    public ToolbarView toolView;
 
     public NodeGraph currentGraph = null;
 
@@ -42,19 +43,20 @@ public class NodeGraphWindow : EditorWindow {
 
     private void OnGUI()
     {
-        if(propertyView == null || graphView == null)
+        if(propertyView == null || graphView == null || toolView == null)
         {
             CreateViews();
             return;
         }
 
-        EditorGUILayout.LabelField("Editor perro...");
+        //EditorGUILayout.LabelField("Editor perro...");
 
         Event e = Event.current;
         ProcessEvents(e);
 
-        graphView.UpdateView(position, new Rect(0f, 0f, viewPrecentage, 1f), e, currentGraph);
-        propertyView.UpdateView(new Rect(position.width, position.y, position.width, position.height), new Rect(viewPrecentage, 0f, 1f - viewPrecentage, 1f), e, currentGraph);
+        graphView.UpdateView(new Rect(new Vector2(0, 150f), position.size), new Rect(0f, 0.188f, viewPrecentage, 1f), e, currentGraph);
+        propertyView.UpdateView(new Rect(position.width, 150f, position.width, position.height), new Rect(viewPrecentage, 0.188f, 1f - viewPrecentage, 1f), e, currentGraph);
+        toolView.UpdateView(new Rect(Vector2.zero,position.size), new Rect(0f, 0f, viewPrecentage, 1f), e, currentGraph);
         Repaint();
     }
 
@@ -64,6 +66,7 @@ public class NodeGraphWindow : EditorWindow {
         if (currentWindow != null)
         {
             currentWindow.propertyView = new NodePropertyView();
+            currentWindow.toolView = new ToolbarView();
             currentWindow.graphView = new GraphView();
         }
         else

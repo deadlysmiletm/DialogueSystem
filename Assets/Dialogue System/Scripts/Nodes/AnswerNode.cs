@@ -6,13 +6,14 @@ using UnityEditor;
 
 public class AnswerNode : BaseNode {
 
-    public Button answer;
+    public Button answerButton;
+    public string answer;
     public Vector2 buttonPosition;
+
+    public KeyCode myKey;
 
     //Uso exclusivo por parte del QuestionNode
     public int index;
-
-    public KeyCode myKey;
 
     public override void InitNode() {
         base.InitNode();
@@ -66,10 +67,13 @@ public class AnswerNode : BaseNode {
 
     protected override bool ApproveConnection()
     {
-        if (parentGraph.connectionNode.nodeType == NodeType.Question)
-            return true;
-        else
-            return false;
+        if (parentGraph.connectionNode != null)
+        {
+            if (parentGraph.connectionNode.nodeType == NodeType.Question)
+                return true;
+        }
+
+        return false;
     }
 
 

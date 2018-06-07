@@ -277,8 +277,11 @@ public static class NodeUtilities {
         Handles.EndGUI();
     }
 
-    public static void CreateContainer(GameObject prefab)
+    public static void CreateContainer(GameObject prefab, GameObject canvas, string name)
     {
-        GameObject.Instantiate(prefab);
+        var temp = GameObject.Instantiate(prefab);
+
+        temp.transform.SetParent(canvas.transform, false);
+        temp.name = name;
     }
 }

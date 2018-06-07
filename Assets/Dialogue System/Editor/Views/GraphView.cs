@@ -7,6 +7,7 @@ public class GraphView : ViewBase
 {
     protected Vector2 mousePos;
     int overNodeID = 0;
+    int index;
 
     public GraphView() : base("Graph View") {}
 
@@ -25,7 +26,7 @@ public class GraphView : ViewBase
 
 
         GUILayout.BeginArea(viewRect);
-        if(currentGraph != null)
+        if (currentGraph != null)
         {
             currentGraph.UpdateGraphGUI(e, viewRect, viewSkin);
         }
