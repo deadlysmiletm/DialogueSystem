@@ -47,7 +47,7 @@ public class DelayNode : BaseNode {
         else
         {
             _delay = delay;
-            CurrentNode.actualNode = output.outputNode;
+            behaviour.ChangeNode(output.outputNode);
         }
     }
 }

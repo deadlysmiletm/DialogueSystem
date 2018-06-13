@@ -5,6 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class StartNode : BaseNode {
 
+    public KeyCode key;
+    public float delay;
+
+    public bool delayMod, keyMod;
+    public DialogueBehaviour container;
+
+
     public StartNode()
     {
         output = new NodeOutput();
@@ -45,6 +52,14 @@ public class StartNode : BaseNode {
 
     public override void IsActive()
     {
-        CurrentNode.actualNode = output.outputNode;
+        for (int i = 0; i < 2; i++)
+        {
+            behaviour.ButtonFactory();
+        }
+
+        if (output.outputNode != null)
+            behaviour.ChangeNode(output.outputNode);
     }
+
+
 }

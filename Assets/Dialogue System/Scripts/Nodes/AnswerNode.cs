@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class AnswerNode : BaseNode {
 
+    public Button answerButton;
     public string answer;
+    public Vector2 buttonPosition;
 
-    public int current;
     public KeyCode myKey;
+
+    //Uso exclusivo por parte del QuestionNode
+    public int index;
 
     public override void InitNode() {
         base.InitNode();
@@ -62,16 +67,19 @@ public class AnswerNode : BaseNode {
 
     protected override bool ApproveConnection()
     {
-        if (parentGraph.connectionNode.nodeType == NodeType.Question)
-            return true;
-        else
-            return false;
+        if (parentGraph.connectionNode != null)
+        {
+            if (parentGraph.connectionNode.nodeType == NodeType.Question)
+                return true;
+        }
+
+        return false;
     }
 
 
     public override void IsActive()
     {
-
+        behaviour.ChangeNode(output.outputNode);
     }
 
     protected override void NodeStyle(GUISkin viewSkin) {

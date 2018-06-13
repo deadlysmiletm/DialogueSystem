@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49758f5f194a5af4fbe59b84f23ed193, type: 3}
+  m_Name: adasdasd
+  m_EditorClassIdentifier: 
+  graphName: adasdasd
+  nodes:
+  - {fileID: 114443659722693124}
+  - {fileID: 114348005892407918}
+  - {fileID: 114938164022941924}
+  - {fileID: 114385954532379046}
+  selectedNode: {fileID: 0}
+  wantsConnection: 0
+  connectionNode: {fileID: 0}
+  panningScreen: 0
+  offset: {x: 0, y: 0}
+--- !u!114 &114348005892407918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0084178df20c4094590219b3579acea9, type: 3}
+  m_Name: End
+  m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
+  myRect:
+    serializedVersion: 2
+    x: 307
+    y: 136
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: End
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 5
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+--- !u!114 &114385954532379046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3195d4eb692f58245a3451a58e998edf, type: 3}
+  m_Name: Question Node
+  m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
+  myRect:
+    serializedVersion: 2
+    x: 50
+    y: 50
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Question Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 1
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  output:
+    hasSomething: 0
+    outputNode: []
+--- !u!114 &114443659722693124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b704313d65c7e48b7d809d3f19e708, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
+  myRect:
+    serializedVersion: 2
+    x: 104
+    y: 136
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Start
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 4
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  key: 0
+  delay: 0
+  delayMod: 0
+  keyMod: 0
+  container: {fileID: 0}
+--- !u!114 &114938164022941924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
+  myRect:
+    serializedVersion: 2
+    x: 50
+    y: 50
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 0
+    inputNode: []
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  delayMod: 0
+  keyMod: 0
+  key: 0
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: 
+  modifVar: 0

@@ -16,6 +16,7 @@ public class NodePropertyView : ViewBase
     private BaseNode[] allNodes;
     private List<string> allParameters;
     private List<string> typeParam;
+    private int valueInteger;
     private enum MyParams
     {
         Bool,
@@ -72,30 +73,12 @@ public class NodePropertyView : ViewBase
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-        EditorGUILayout.BeginHorizontal();
-        /*if (GUILayout.Button("Add parameter"))
-        {
-            allParameters.Add("");
-        }
-        if (allParameters.Count > 0) {
-            if (GUILayout.Button("Remove parameter"))
-                allParameters.RemoveAt(allParameters.Count - 1);
-                //Repaint();
-        }*/
-
-        EditorGUILayout.EndHorizontal();
+        
 
         EditorGUILayout.LabelField("My paramters", myStyleSmall);
 
         EditorGUILayout.BeginVertical();
-        /* if (allParameters != null) {
-             for (int i = 0; i < allParameters.Count; i++) {
-                 EditorGUILayout.BeginHorizontal();
-                 //MyParams = 
-                 allParameters[i] = EditorGUILayout.TextField(allParameters[i]);
-                 EditorGUILayout.EndHorizontal();
-             }
-         }*/
+         
 
         if (currentGraph!=null && currentGraph.selectedNode!= null)
         {
@@ -108,8 +91,65 @@ public class NodePropertyView : ViewBase
             if (currentGraph.selectedNode.nodeType == NodeType.Condicional)
             {
                 currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
-                //var myCond = (ConditionNode)currentGraph.selectedNode;
+                var myCond = (ConditionNode)currentGraph.selectedNode;
 
+                EditorGUILayout.BeginVertical();
+
+                EditorGUILayout.LabelField("Integer Params");
+
+                EditorGUILayout.BeginHorizontal();
+                string MyKey = "";
+                MyKey = EditorGUILayout.TextField("My integer key : ", MyKey);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Add parameter"))
+                {
+                    valueInteger++;
+                    if (!myCond.integrerConditions.ContainsKey(MyKey))
+                    {
+                        Debug.Log("entre");
+                        myCond.integrerConditions.Add(MyKey, valueInteger);
+                    }
+                    
+                }
+
+                    
+                /*if (myCond.integrerConditions.Count > 0)
+                {
+                    if (GUILayout.Button("Remove parameter"))
+                        myCond.integrerConditions.Remove(myCond.integrerConditions.Keys);
+                }*/
+                EditorGUILayout.EndHorizontal();
+
+                /*if (allParameters != null)
+                {
+                    for (int i = 0; i < allParameters.Count; i++)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        allParameters[i] = EditorGUILayout.TextField(allParameters[i]);
+                        EditorGUILayout.EndHorizontal();
+                    }
+                }*/
+
+                if (myCond.integrerConditions!=null)
+                {
+                    foreach (var item in myCond.integrerConditions)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        var k = item.Key;
+                        k = EditorGUILayout.TextField("my key", k);
+                        EditorGUILayout.EndHorizontal();
+                    }
+                    
+                }
+                
+
+                /*for (int i = 0; i < myCond.integrerConditions.Count-1; i++)
+                {
+                    myCond.integrerConditions
+                }*/
+                EditorGUILayout.EndVertical();
             }
             if (currentGraph.selectedNode.nodeType == NodeType.Delay)
             {
@@ -121,13 +161,12 @@ public class NodePropertyView : ViewBase
             {
                 currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
                 var myDiag = (DialogueNode)currentGraph.selectedNode;
-                myDiag.Dialogues =EditorGUILayout.TextField("Dialogue",myDiag.Dialogues);
+                myDiag.dialogue =EditorGUILayout.TextField("Dialogue",myDiag.dialogue);
             }
             if (currentGraph.selectedNode.nodeType == NodeType.Question)
             {
                 currentGraph.selectedNode.nodeName = EditorGUILayout.TextField("Node Name", currentGraph.selectedNode.nodeName);
                 //var myQue = (QuestionNode)currentGraph.selectedNode;
-                //myQue.Dialogues = EditorGUILayout.TextField("Question", myQue.Dialogues);
             }
 
         }

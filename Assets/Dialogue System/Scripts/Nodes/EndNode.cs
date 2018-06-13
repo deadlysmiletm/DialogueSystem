@@ -45,7 +45,6 @@ public class EndNode : BaseNode {
 
     public override void IsActive()
     {
-        CurrentNode.actualNode = null;
-        CurrentNode.endBehaviour = true;
+        behaviour.Stop();
     }
 }

@@ -4,8 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[System.Serializable]
+public class NodeInput
+{
+    public bool hasSomething = false;
+    public List<BaseNode> inputNode;
+}
+
+[System.Serializable]
+public class NodeOutput
+{
+    public bool isOccupied = false;
+    public BaseNode outputNode;
+}
+
 public class BaseNode : ScriptableObject
 {
+    public DialogueBehaviour behaviour;
+
     public Rect myRect;
     public List<BaseNode> myNext;
     public string nodeName;
@@ -19,20 +35,6 @@ public class BaseNode : ScriptableObject
     public NodeOutput output;
 
     protected GUISkin nodeSkin;
-
-    [System.Serializable]
-    public class NodeInput
-    {
-        public bool hasSomething = false;
-        public List<BaseNode> inputNode;
-    }
-
-    [System.Serializable]
-    public class NodeOutput
-    {
-        public bool isOccupied = false;
-        public BaseNode outputNode;
-    }
 
     public BaseNode()
     {

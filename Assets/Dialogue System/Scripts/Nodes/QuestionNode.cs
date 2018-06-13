@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
+
+[System.Serializable]
+public class MultiNodeOutput
+{
+    public bool hasSomething;
+    public List<BaseNode> outputNode;
+}
 
 [System.Serializable]
 public class QuestionNode : BaseNode
 {
-
     public MultiNodeOutput output;
-
-    [System.Serializable]
-    public class MultiNodeOutput
-    {
-        public bool hasSomething;
-        public List<BaseNode> outputNode;
-    }
+    private bool _initialized = false;
 
     public QuestionNode()
     {
@@ -54,7 +55,40 @@ public class QuestionNode : BaseNode
 
     public override void IsActive()
     {
-        base.IsActive();
+        if (!_initialized)
+            SearchButtons();
+    }
+
+    void SearchButtons()
+    {
+        foreach (var node in output.outputNode)
+        {
+            var temp = (AnswerNode)node;
+
+            temp.answerButton = behaviour.TakePool();
+
+            temp.answerButton.GetComponent<RectTransform>().position = temp.buttonPosition;
+            temp.answerButton.GetComponentInChildren<Text>().text = temp.answer;
+            temp.answerButton.onClick.AddListener(delegate { SelectAnswer(output.outputNode.IndexOf(node)); });
+        }
+
+        _initialized = true;
+    }
+
+    void SelectAnswer(int id)
+    {
+        _initialized = false;
+        var nodeSeleceted = output.outputNode[id];
+
+        foreach (var answers in output.outputNode)
+        {
+            var temp = (AnswerNode)answers;
+
+            behaviour.ReturnPool(temp.answerButton);
+            temp.answerButton = null;
+        }
+
+        behaviour.ChangeNode(nodeSeleceted);
     }
 
 }
