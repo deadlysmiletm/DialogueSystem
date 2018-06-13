@@ -14,10 +14,6 @@ public class DialogueBehaviour : MonoBehaviour {
     private bool _isPlaying;
     private GameObject _canvas;
 
-    public void SetCanvas(GameObject canvas)
-    {
-        _canvas = canvas;
-    }
 
     void Start()
     {
@@ -89,8 +85,13 @@ public class DialogueBehaviour : MonoBehaviour {
     {
         var temp = GameObject.Instantiate(buttonPrefab);
         temp.gameObject.SetActive(false);
-
+        temp.transform.SetParent(transform.parent);
         _poolButtons.Add(temp.gameObject);
+    }
+
+    public int PoolCount()
+    {
+        return _poolButtons.Count;
     }
 
     public void ChangeText(string text)

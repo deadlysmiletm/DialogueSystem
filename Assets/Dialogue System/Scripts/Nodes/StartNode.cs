@@ -10,7 +10,6 @@ public class StartNode : BaseNode {
 
     public bool delayMod, keyMod;
 
-
     public StartNode()
     {
         output = new NodeOutput();
@@ -51,9 +50,12 @@ public class StartNode : BaseNode {
 
     public override void IsActive()
     {
-        for (int i = 0; i < 2; i++)
+        if (DialogueDatabase.activeDialogue.PoolCount() < 2)
         {
-            DialogueDatabase.activeDialogue.ButtonFactory();
+            for (int i = 0; i < 2; i++)
+            {
+                DialogueDatabase.activeDialogue.ButtonFactory();
+            }
         }
 
         if (output.outputNode != null)

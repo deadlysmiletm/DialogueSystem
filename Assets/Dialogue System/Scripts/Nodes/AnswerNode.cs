@@ -43,11 +43,11 @@ public class AnswerNode : BaseNode {
                     input.inputNode.Add(connectionNode);
                     input.hasSomething = input.inputNode != null ? true : false;
 
-                    if (!connectionNode.output.outputNode.Contains(this))
+                    if (!connectionNode.multiOutput.outputNode.Contains(this))
                     {
-                        connectionNode.output.outputNode.Add(this);
+                        connectionNode.multiOutput.outputNode.Add(this);
 
-                        connectionNode.output.hasSomething = connectionNode.output.outputNode.Count > 0 ? true : false;
+                        connectionNode.multiOutput.hasSomething = connectionNode.multiOutput.outputNode.Count > 0 ? true : false;
                     }
 
                     parentGraph.wantsConnection = false;
@@ -100,9 +100,9 @@ public class AnswerNode : BaseNode {
         for (int i = 0; i < input.inputNode.Count; i++)
         {
             QuestionNode output = (QuestionNode)input.inputNode[i];
-            int outputID = output.output.outputNode.IndexOf(this);
+            int outputID = output.multiOutput.outputNode.IndexOf(this);
 
-            Handles.DrawLine(new Vector3(input.inputNode[i].myRect.x + input.inputNode[i].myRect.width + 24f, input.inputNode[i].myRect.y + (input.inputNode[i].myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (output.output.outputNode[outputID].myRect.y + (output.output.outputNode[outputID].myRect.height * 0.5f) * inputID), 0f));
+            Handles.DrawLine(new Vector3(input.inputNode[i].myRect.x + input.inputNode[i].myRect.width + 24f, input.inputNode[i].myRect.y + (input.inputNode[i].myRect.height * 0.5f), 0f), new Vector3(myRect.x - 24f, (output.multiOutput.outputNode[outputID].myRect.y + (output.multiOutput.outputNode[outputID].myRect.height * 0.5f) * inputID), 0f));
         }
 
         Handles.EndGUI();

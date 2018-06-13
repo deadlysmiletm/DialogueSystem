@@ -108,9 +108,12 @@ public class NodeGraph : ScriptableObject {
                     {
                         if (nodes[i].myRect.Contains(e.mousePosition))
                         {
-                            nodes[i].isSelected = true;
-                            selectedNode = nodes[i];
-                            setNode = true;
+                            if (selectedNode == null)
+                            {
+                                nodes[i].isSelected = true;
+                                selectedNode = nodes[i];
+                                setNode = true;
+                            }
                         }
                     } 
                     if (!setNode)

@@ -32,15 +32,7 @@ public class DialogueNode : BaseNode
     public override void UpdateNode(Event e, Rect viewRect)
     {
         base.UpdateNode(e, viewRect);
-        var start = (StartNode)parentGraph.nodes[0];
 
-        if (!modifVar)
-        {
-            key = start.key;
-            delay = start.delay;
-            delayMod = start.delayMod;
-            keyMod = start.keyMod;
-        }
 
         if(!Application.isPlaying)
             _originalDelay = delay;
@@ -54,12 +46,30 @@ public class DialogueNode : BaseNode
     
     public override void IsActive()
     {
+        if (!_started)
+        {
+            if (!modifVar)
+            {
+                var start = (StartNode)parentGraph.nodes[0];
+
+                key = start.key;
+                delay = start.delay;
+                delayMod = start.delayMod;
+                keyMod = start.keyMod;
+            }
+
+            _originalDelay = delay;
+
+            _started = true;
+        }
+
         WriteText();
 
         if (_delayComplete || Condition())
         {
             _delayComplete = false;
             delay = _originalDelay;
+            _started = false;
             DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
         }
 

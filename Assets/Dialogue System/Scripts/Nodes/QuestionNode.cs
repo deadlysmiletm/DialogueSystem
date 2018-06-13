@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using System.Linq;
 
 [System.Serializable]
 public class MultiNodeOutput
@@ -14,15 +15,15 @@ public class MultiNodeOutput
 [System.Serializable]
 public class QuestionNode : BaseNode
 {
-    public MultiNodeOutput output;
+    public MultiNodeOutput multiOutput;
     private bool _initialized = false;
 
     public QuestionNode()
     {
         input = new NodeInput();
-        output = new MultiNodeOutput();
+        multiOutput = new MultiNodeOutput();
 
-        output.outputNode = new List<BaseNode>();
+        multiOutput.outputNode = new List<BaseNode>();
         input.inputNode = new List<BaseNode>();
     }
 
@@ -35,10 +36,12 @@ public class QuestionNode : BaseNode
 
     protected override void NodeStyle(GUISkin viewSkin)
     {
-        if (!isSelected) {
+        if (!isSelected)
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("Question"));
         }
-        else {
+        else
+        {
             GUI.Box(myRect, nodeName, viewSkin.GetStyle("QuestionSelected"));
         }
     }
@@ -61,32 +64,31 @@ public class QuestionNode : BaseNode
 
     void SearchButtons()
     {
-        foreach (var node in output.outputNode)
+        _initialized = true;
+        DialogueDatabase.buttonsActive = new List<Button>();
+
+        foreach (var node in multiOutput.outputNode)
         {
             var temp = (AnswerNode)node;
+            DialogueDatabase.buttonsActive.Add(DialogueDatabase.activeDialogue.TakePool());
 
-            temp.answerButton = DialogueDatabase.activeDialogue.TakePool();
-
-            temp.answerButton.GetComponent<RectTransform>().position = temp.buttonPosition;
-            temp.answerButton.GetComponentInChildren<Text>().text = temp.answer;
-            temp.answerButton.onClick.AddListener(delegate { SelectAnswer(output.outputNode.IndexOf(node)); });
+            DialogueDatabase.buttonsActive.Last().GetComponent<RectTransform>().anchoredPosition = temp.buttonPosition;
+            DialogueDatabase.buttonsActive.Last().GetComponentInChildren<Text>().text = temp.answer;
+            DialogueDatabase.buttonsActive.Last().onClick.AddListener(delegate { SelectAnswer(multiOutput.outputNode.IndexOf(node)); });
         }
-
-        _initialized = true;
     }
 
     void SelectAnswer(int id)
     {
         _initialized = false;
-        var nodeSeleceted = output.outputNode[id];
+        var nodeSeleceted = multiOutput.outputNode[id];
 
-        foreach (var answers in output.outputNode)
+        foreach (var item in DialogueDatabase.buttonsActive)
         {
-            var temp = (AnswerNode)answers;
-
-            DialogueDatabase.activeDialogue.ReturnPool(temp.answerButton);
-            temp.answerButton = null;
+            DialogueDatabase.activeDialogue.ReturnPool(item);
         }
+
+        DialogueDatabase.buttonsActive = new List<Button>();
 
         DialogueDatabase.activeDialogue.ChangeNode(nodeSeleceted);
     }

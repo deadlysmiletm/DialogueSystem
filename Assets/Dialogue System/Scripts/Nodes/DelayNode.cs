@@ -13,7 +13,6 @@ public class DelayNode : BaseNode {
         base.InitNode();
         nodeType = NodeType.Delay;
         myRect = new Rect(10f, 10f, 110f, 55f);
-        _delay = delay;
     }
 
     protected override void NodeStyle(GUISkin viewSkin)
@@ -40,13 +39,20 @@ public class DelayNode : BaseNode {
 
     public override void IsActive()
     {
-        if(_delay > 0)
+        if (!_started)
+        {
+            _delay = delay;
+            _started = true;
+        }
+
+        if (_delay > 0)
         {
             _delay -= Time.deltaTime;
         }
         else
         {
             _delay = delay;
+            _started = false;
             DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
         }
     }

@@ -33,6 +33,7 @@ public class BaseNode : ScriptableObject
     public NodeOutput output;
 
     protected GUISkin nodeSkin;
+    protected bool _started = false;
 
     public BaseNode()
     {
@@ -89,8 +90,8 @@ public class BaseNode : ScriptableObject
                     {
                         QuestionNode connectionNode = (QuestionNode)parentGraph.connectionNode;
 
-                        connectionNode.output.outputNode.Add(this);
-                        connectionNode.output.hasSomething = true;
+                        connectionNode.multiOutput.outputNode.Add(this);
+                        connectionNode.multiOutput.hasSomething = true;
                     }
                     else
                     {

@@ -141,8 +141,8 @@ public static class NodeUtilities {
                         {
                             QuestionNode questionNode = (QuestionNode)deleteNode.input.inputNode[i];
 
-                            questionNode.output.outputNode.Remove(graph.nodes[nodeID]);
-                            questionNode.output.hasSomething = questionNode.output.outputNode.Count == 0 ? false : true;
+                            questionNode.multiOutput.outputNode.Remove(graph.nodes[nodeID]);
+                            questionNode.multiOutput.hasSomething = questionNode.multiOutput.outputNode.Count == 0 ? false : true;
                         }
                     }
                     else
@@ -159,10 +159,10 @@ public static class NodeUtilities {
                     {
                         QuestionNode questionNode = (QuestionNode)deleteNode;
 
-                        for (int i = 0; i < questionNode.output.outputNode.Count; i++)
+                        for (int i = 0; i < questionNode.multiOutput.outputNode.Count; i++)
                         {
-                            questionNode.output.outputNode[i].input.inputNode.Remove(questionNode);
-                            questionNode.output.outputNode[i].input.hasSomething = questionNode.output.outputNode[i].input.inputNode.Count > 0 ? true : false;
+                            questionNode.multiOutput.outputNode[i].input.inputNode.Remove(questionNode);
+                            questionNode.multiOutput.outputNode[i].input.hasSomething = questionNode.multiOutput.outputNode[i].input.inputNode.Count > 0 ? true : false;
                         }
                     }
                     else
@@ -194,8 +194,8 @@ public static class NodeUtilities {
                 {
                     QuestionNode questionNode = (QuestionNode)graph.nodes[nodeID].input.inputNode[i];
 
-                    questionNode.output.outputNode.RemoveAt(questionNode.output.outputNode.IndexOf(graph.nodes[nodeID]));
-                    questionNode.output.hasSomething = questionNode.output.outputNode.Count == 0 ? false : true;
+                    questionNode.multiOutput.outputNode.RemoveAt(questionNode.multiOutput.outputNode.IndexOf(graph.nodes[nodeID]));
+                    questionNode.multiOutput.hasSomething = questionNode.multiOutput.outputNode.Count == 0 ? false : true;
                 }
             }
             else
@@ -220,17 +220,17 @@ public static class NodeUtilities {
             {
                 QuestionNode multiNode = (QuestionNode)graph.nodes[nodeID];
 
-                if (multiNode.output.hasSomething)
+                if (multiNode.multiOutput.hasSomething)
                 {
-                    for (int i = 0; i < multiNode.output.outputNode.Count; i++)
+                    for (int i = 0; i < multiNode.multiOutput.outputNode.Count; i++)
                     {
-                        multiNode.output.outputNode[i].input.inputNode.Remove(multiNode);
+                        multiNode.multiOutput.outputNode[i].input.inputNode.Remove(multiNode);
 
-                        multiNode.output.outputNode[i].input.hasSomething = multiNode.output.outputNode[i].input.inputNode.Count > 0 ? true : false;
+                        multiNode.multiOutput.outputNode[i].input.hasSomething = multiNode.multiOutput.outputNode[i].input.inputNode.Count > 0 ? true : false;
                     }
 
-                    multiNode.output.outputNode = new List<BaseNode>();
-                    multiNode.output.hasSomething = false;
+                    multiNode.multiOutput.outputNode = new List<BaseNode>();
+                    multiNode.multiOutput.hasSomething = false;
                 }
             }
             else

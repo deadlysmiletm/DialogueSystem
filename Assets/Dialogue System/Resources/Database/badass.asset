@@ -9,19 +9,137 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49758f5f194a5af4fbe59b84f23ed193, type: 3}
-  m_Name: badass
+  m_Name: Badass
   m_EditorClassIdentifier: 
-  graphName: badass
+  graphName: Badass
   nodes:
-  - {fileID: 114221386974430798}
-  - {fileID: 114598589146874516}
-  - {fileID: 114338596469052700}
+  - {fileID: 114197145878109688}
+  - {fileID: 114178560120373668}
+  - {fileID: 114835497451986770}
+  - {fileID: 114717776957068134}
+  - {fileID: 114716567955936358}
+  - {fileID: 114527175656854710}
+  - {fileID: 114099786735113262}
+  - {fileID: 114431009225081296}
+  - {fileID: 114138552227852412}
+  - {fileID: 114221284228776644}
+  - {fileID: 114348820807352950}
+  - {fileID: 114571054319287478}
   selectedNode: {fileID: 0}
   wantsConnection: 0
   connectionNode: {fileID: 0}
   panningScreen: 0
-  offset: {x: -1, y: 15}
---- !u!114 &114221386974430798
+  offset: {x: -284, y: 30.000015}
+--- !u!114 &114099786735113262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 347
+    y: 61.000015
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114716567955936358}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114138552227852412}
+  delayMod: 0
+  keyMod: 1
+  key: 97
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: No wey
+  modifVar: 0
+--- !u!114 &114138552227852412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 564
+    y: 204.00002
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114431009225081296}
+    - {fileID: 114099786735113262}
+    - {fileID: 114571054319287478}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114178560120373668}
+  delayMod: 0
+  keyMod: 1
+  key: 97
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: Vamos a por ello wey
+  modifVar: 0
+--- !u!114 &114178560120373668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0084178df20c4094590219b3579acea9, type: 3}
+  m_Name: End
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 785
+    y: 200.00002
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: End
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 5
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114138552227852412}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+--- !u!114 &114197145878109688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -32,11 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b704313d65c7e48b7d809d3f19e708, type: 3}
   m_Name: Start
   m_EditorClassIdentifier: 
-  behaviour: {fileID: 0}
   myRect:
     serializedVersion: 2
-    x: 41
-    y: 151
+    x: -692
+    y: 175.00002
     width: 110
     height: 55
   myNext: []
@@ -51,14 +168,85 @@ MonoBehaviour:
     inputNode: []
   output:
     isOccupied: 1
-    outputNode: {fileID: 114338596469052700}
-  key: 0
+    outputNode: {fileID: 114835497451986770}
+  key: 97
   delay: 0
   delayMod: 0
-  keyMod: 0
-  container: {fileID: 114171650262510480, guid: c41c440f4757be945aab312bd52a3c74,
-    type: 2}
---- !u!114 &114338596469052700
+  keyMod: 1
+--- !u!114 &114221284228776644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3195d4eb692f58245a3451a58e998edf, type: 3}
+  m_Name: Question Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: -90
+    y: 164.00002
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Question Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 1
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114717776957068134}
+  output:
+    isOccupied: 0
+    outputNode: {fileID: 0}
+  multiOutput:
+    hasSomething: 1
+    outputNode:
+    - {fileID: 114716567955936358}
+    - {fileID: 114527175656854710}
+    - {fileID: 114348820807352950}
+--- !u!114 &114348820807352950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 113
+    y: 371
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Answer Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 3
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114221284228776644}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114571054319287478}
+  answerButton: {fileID: 0}
+  answer: "\xBFQuieres Aasdasd?"
+  buttonPosition: {x: 0, y: 50}
+  myKey: 0
+  index: 0
+--- !u!114 &114431009225081296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -69,11 +257,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
   m_Name: Dialogue Node
   m_EditorClassIdentifier: 
-  behaviour: {fileID: 0}
   myRect:
     serializedVersion: 2
-    x: 292
-    y: 59
+    x: 324
+    y: 196.00002
     width: 110
     height: 55
   myNext: []
@@ -86,18 +273,18 @@ MonoBehaviour:
   input:
     hasSomething: 1
     inputNode:
-    - {fileID: 114221386974430798}
+    - {fileID: 114527175656854710}
   output:
     isOccupied: 1
-    outputNode: {fileID: 114598589146874516}
+    outputNode: {fileID: 114138552227852412}
   delayMod: 0
-  keyMod: 0
-  key: 0
+  keyMod: 1
+  key: 97
   delay: 0
   textContainer: {fileID: 0}
-  dialogue: badabum
+  dialogue: "S\xED wey"
   modifVar: 0
---- !u!114 &114598589146874516
+--- !u!114 &114527175656854710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -105,27 +292,181 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0084178df20c4094590219b3579acea9, type: 3}
-  m_Name: End
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
   m_EditorClassIdentifier: 
-  behaviour: {fileID: 0}
   myRect:
     serializedVersion: 2
-    x: 570
-    y: 163.00002
+    x: 129
+    y: 204.00002
     width: 110
     height: 55
   myNext: []
-  nodeName: End
+  nodeName: Answer Node
   duration: 0
   isPanning: 0
   isSelected: 0
   parentGraph: {fileID: 11400000}
-  nodeType: 5
+  nodeType: 3
   input:
     hasSomething: 1
     inputNode:
-    - {fileID: 114338596469052700}
+    - {fileID: 114221284228776644}
   output:
-    isOccupied: 0
-    outputNode: {fileID: 0}
+    isOccupied: 1
+    outputNode: {fileID: 114431009225081296}
+  answerButton: {fileID: 0}
+  answer: "\xBFQuieres tacos?"
+  buttonPosition: {x: 235, y: 127}
+  myKey: 0
+  index: 0
+--- !u!114 &114571054319287478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 322
+    y: 349
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114348820807352950}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114138552227852412}
+  delayMod: 0
+  keyMod: 1
+  key: 97
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: "\xBFQu\xE9 chucha es eso wey?"
+  modifVar: 0
+--- !u!114 &114716567955936358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43266155d6ee9664ab263fdbb076c630, type: 3}
+  m_Name: Answer Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: 129
+    y: 62.000015
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Answer Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 3
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114221284228776644}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114099786735113262}
+  answerButton: {fileID: 0}
+  answer: "\xBFQuieres caca?"
+  buttonPosition: {x: -235, y: 127}
+  myKey: 0
+  index: 0
+--- !u!114 &114717776957068134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: -290
+    y: 163.00002
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114835497451986770}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114221284228776644}
+  delayMod: 0
+  keyMod: 1
+  key: 97
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: "\xBFTienes algo para m\xED wey?"
+  modifVar: 0
+--- !u!114 &114835497451986770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  myRect:
+    serializedVersion: 2
+    x: -479
+    y: 170.00002
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 0
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114197145878109688}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114717776957068134}
+  delayMod: 0
+  keyMod: 1
+  key: 97
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: Hola wey
+  modifVar: 0
