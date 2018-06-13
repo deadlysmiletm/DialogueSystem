@@ -81,8 +81,6 @@ public class BaseNode : ScriptableObject
                         parentGraph.connectionNode.output.outputNode.input.inputNode.Remove(parentGraph.connectionNode);
                     }
 
-                    Debug.Log(parentGraph.connectionNode.nodeName);
-
                     input.inputNode.Add(parentGraph.connectionNode);
                     input.hasSomething = input.inputNode.Count > 0 ? true : false;
 

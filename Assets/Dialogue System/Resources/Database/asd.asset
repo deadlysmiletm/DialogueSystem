@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 114766262316426742}
   - {fileID: 114026991979706234}
   - {fileID: 114746946472219038}
-  selectedNode: {fileID: 114766262316426742}
+  selectedNode: {fileID: 0}
   wantsConnection: 0
   connectionNode: {fileID: 0}
   panningScreen: 0
@@ -37,8 +37,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 50
-    y: 50
+    x: 421
+    y: 160
     width: 110
     height: 55
   myNext: []
@@ -177,8 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 50
-    y: 50
+    x: 237
+    y: 92
     width: 110
     height: 55
   myNext: []
@@ -218,7 +218,7 @@ MonoBehaviour:
   nodeName: Answer Node
   duration: 0
   isPanning: 0
-  isSelected: 1
+  isSelected: 0
   parentGraph: {fileID: 11400000}
   nodeType: 3
   input:

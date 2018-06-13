@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public class GraphView : ViewBase
 {
@@ -17,9 +18,6 @@ public class GraphView : ViewBase
 
         GUI.Box(viewRect, viewTitle, viewSkin.GetStyle("ViewBG"));
 
-        //Rect rect = currentGraph != null ? new Rect(new Vector2(-(float)Mathf.Infinity, -(float)Mathf.Infinity), new Vector2((float)Mathf.Infinity, (float)Mathf.Infinity)) : viewRect;
-        //Debug.Log("position "+ rect.position+", size " + rect.size);
-
         NodeUtilities.DrawGrid(viewRect, 80f, 0.15f, Color.white, currentGraph);
         NodeUtilities.DrawGrid(viewRect, 40f, 0.10f, Color.white, currentGraph);
         NodeUtilities.DrawGrid(viewRect, 20f, 0.05f, Color.white, currentGraph);
@@ -29,10 +27,41 @@ public class GraphView : ViewBase
         if (currentGraph != null)
         {
             currentGraph.UpdateGraphGUI(e, viewRect, viewSkin);
+
+            if (!EndConnectedWithStart(currentGraph.nodes[0]))
+            {
+                GUILayout.BeginArea(new Rect(0, viewRect.size.y - 100, viewRect.size.x, 40));
+                EditorGUILayout.HelpBox("El nodo inicial debe conectar con el nodo final en todos los caminos.", MessageType.Error);
+                GUILayout.EndArea();
+            }
         }
         GUILayout.EndArea();
 
         ProcessEvents(e);
+    }
+
+    public bool EndConnectedWithStart(BaseNode node)
+    {
+        if (node.GetType() == typeof(EndNode))
+            return true;
+
+        if(node.GetType() == typeof(QuestionNode))
+        {
+            var temp = (QuestionNode)node;
+            foreach (var item in temp.multiOutput.outputNode)
+            {
+                if (item == temp.multiOutput.outputNode.Last())
+                    return (EndConnectedWithStart(item));
+
+                if (!EndConnectedWithStart(item))
+                    return false;
+            }
+        }
+
+        if (!node.output.isOccupied)
+            return false;
+
+        return EndConnectedWithStart(node.output.outputNode);
     }
 
     public override void ProcessEvents(Event e)

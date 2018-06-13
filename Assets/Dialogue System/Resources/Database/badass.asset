@@ -29,7 +29,7 @@ MonoBehaviour:
   wantsConnection: 0
   connectionNode: {fileID: 0}
   panningScreen: 0
-  offset: {x: -284, y: 30.000015}
+  offset: {x: -203, y: 19}
 --- !u!114 &114099786735113262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,8 +43,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 347
-    y: 61.000015
+    x: 599
+    y: 59
     width: 110
     height: 55
   myNext: []
@@ -81,8 +81,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 564
-    y: 204.00002
+    x: 860
+    y: 193
     width: 110
     height: 55
   myNext: []
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 785
-    y: 200.00002
+    x: 1088
+    y: 190
     width: 110
     height: 55
   myNext: []
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: -692
-    y: 175.00002
+    x: -447
+    y: 182.99997
     width: 110
     height: 55
   myNext: []
@@ -186,8 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: -90
-    y: 164.00002
+    x: 179
+    y: 165
     width: 110
     height: 55
   myNext: []
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 113
-    y: 371
+    x: 396
+    y: 332
     width: 110
     height: 55
   myNext: []
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 324
-    y: 196.00002
+    x: 593
+    y: 197
     width: 110
     height: 55
   myNext: []
@@ -297,8 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 129
-    y: 204.00002
+    x: 400
+    y: 190
     width: 110
     height: 55
   myNext: []
@@ -333,8 +333,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 322
-    y: 349
+    x: 595
+    y: 317
     width: 110
     height: 55
   myNext: []
@@ -371,8 +371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: 129
-    y: 62.000015
+    x: 398
+    y: 63
     width: 110
     height: 55
   myNext: []
@@ -407,8 +407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: -290
-    y: 163.00002
+    x: -21
+    y: 164
     width: 110
     height: 55
   myNext: []
@@ -445,8 +445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRect:
     serializedVersion: 2
-    x: -479
-    y: 170.00002
+    x: -210
+    y: 171
     width: 110
     height: 55
   myNext: []

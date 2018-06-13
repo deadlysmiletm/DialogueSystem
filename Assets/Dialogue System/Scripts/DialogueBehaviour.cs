@@ -48,6 +48,8 @@ public class DialogueBehaviour : MonoBehaviour {
     {
         _isPlaying = false;
         _actualNode = _currentGraph.nodes[0];
+        DialogueDatabase.activeDialogue = null;
+        this.gameObject.SetActive(false);
     }
 
     public void AssignBehaviour(NodeGraph grapho)
