@@ -26,7 +26,7 @@ public class ConditionNode : BaseNode
     private Dictionary<string, object> variables = new Dictionary<string, object>();
     private Dictionary<string, OperationType> operationTypes;
 
-    public void ChangeIntegrerVar(string varName, int value)
+    public void ChangeIntegrerValue(string varName, int value)
     {
         if(value.GetType() == typeof(int))
             variables[varName] = (int)value;
