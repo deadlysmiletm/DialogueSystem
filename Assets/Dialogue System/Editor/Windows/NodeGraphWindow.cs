@@ -26,21 +26,6 @@ public class NodeGraphWindow : EditorWindow {
         CreateViews();
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDestroy()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
-
     private void OnGUI()
     {
         if(propertyView == null || graphView == null || toolView == null)
