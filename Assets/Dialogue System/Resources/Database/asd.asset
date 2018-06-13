@@ -9,18 +9,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49758f5f194a5af4fbe59b84f23ed193, type: 3}
-  m_Name: qweeqwe
+  m_Name: asd
   m_EditorClassIdentifier: 
-  graphName: qweeqwe
+  graphName: asd
   nodes:
-  - {fileID: 114454094685415520}
-  - {fileID: 114765848528471188}
-  selectedNode: {fileID: 0}
+  - {fileID: 114178928793365670}
+  - {fileID: 114736015588262724}
+  - {fileID: 114366732899704420}
+  selectedNode: {fileID: 114366732899704420}
   wantsConnection: 0
   connectionNode: {fileID: 0}
   panningScreen: 0
   offset: {x: 0, y: 0}
---- !u!114 &114454094685415520
+--- !u!114 &114178928793365670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -31,10 +32,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b704313d65c7e48b7d809d3f19e708, type: 3}
   m_Name: Start
   m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
   myRect:
     serializedVersion: 2
-    x: 78
-    y: 148
+    x: 104
+    y: 136
     width: 110
     height: 55
   myNext: []
@@ -48,9 +50,53 @@ MonoBehaviour:
     hasSomething: 0
     inputNode: []
   output:
-    isOccupied: 0
-    outputNode: {fileID: 0}
---- !u!114 &114765848528471188
+    isOccupied: 1
+    outputNode: {fileID: 114366732899704420}
+  key: 0
+  delay: 0
+  delayMod: 0
+  keyMod: 0
+  container: {fileID: 0}
+--- !u!114 &114366732899704420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde44d057ec26ce4e83b3550067faec7, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
+  myRect:
+    serializedVersion: 2
+    x: 337
+    y: 122
+    width: 110
+    height: 55
+  myNext: []
+  nodeName: Dialogue Node
+  duration: 0
+  isPanning: 0
+  isSelected: 1
+  parentGraph: {fileID: 11400000}
+  nodeType: 0
+  input:
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114178928793365670}
+  output:
+    isOccupied: 1
+    outputNode: {fileID: 114736015588262724}
+  delayMod: 0
+  keyMod: 0
+  key: 0
+  delay: 0
+  textContainer: {fileID: 0}
+  dialogue: 
+  modifVar: 0
+--- !u!114 &114736015588262724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -61,10 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0084178df20c4094590219b3579acea9, type: 3}
   m_Name: End
   m_EditorClassIdentifier: 
+  behaviour: {fileID: 0}
   myRect:
     serializedVersion: 2
-    x: 480
-    y: 184
+    x: 594
+    y: 209
     width: 110
     height: 55
   myNext: []
@@ -75,8 +122,9 @@ MonoBehaviour:
   parentGraph: {fileID: 11400000}
   nodeType: 5
   input:
-    hasSomething: 0
-    inputNode: []
+    hasSomething: 1
+    inputNode:
+    - {fileID: 114366732899704420}
   output:
     isOccupied: 0
     outputNode: {fileID: 0}

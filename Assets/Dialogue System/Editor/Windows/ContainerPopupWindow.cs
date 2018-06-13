@@ -16,7 +16,7 @@ public class ContainerPopupWindow : EditorWindow {
     {
         containerPopup = (ContainerPopupWindow)EditorWindow.GetWindow<ContainerPopupWindow>();
         containerPopup.titleContent = new GUIContent("Conteiner Popup");
-        containerPopup._prefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Dialogue System/Resources/Prefab/DialogueContainer.asset", typeof(GameObject));
+        containerPopup._prefab = (GameObject)Resources.Load<GameObject>("Prefab/DialogueContainer");
     }
 
     private void OnGUI()
@@ -61,7 +61,7 @@ public class ContainerPopupWindow : EditorWindow {
             }
             GUILayout.EndHorizontal();
         }
-        else if (_canvas = null)
+        else if (_canvas == null)
             EditorGUILayout.HelpBox("The canvas can't be null.", MessageType.Error);
         else
         {

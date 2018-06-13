@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d32225aa212ce4ea6528b35d71b5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 11400000, guid: df45e44d812439140acf1b7c6b532152, type: 2}
+  graph: {fileID: 0}
   buttonPrefab: {fileID: 114714029652223300, guid: 9809e026e406cdd4e8794210aaa5b04c,
     type: 2}
 --- !u!114 &114187112576560116
@@ -134,7 +134,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Dialogue System Text Container.
+  m_Text: Dialogue System Text Container
 --- !u!222 &222458054137565948
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -183,7 +183,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -151.6}
-  m_SizeDelta: {x: 787.8, y: 103.7}
+  m_SizeDelta: {x: 760.4, y: 103.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224501279589506164
 RectTransform:
@@ -200,6 +200,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00000023841858, y: -152.20001}
-  m_SizeDelta: {x: 716.6, y: 31.200012}
+  m_AnchoredPosition: {x: 0, y: -152.20001}
+  m_SizeDelta: {x: 686.4, y: 31.200012}
   m_Pivot: {x: 0.5, y: 0.5}

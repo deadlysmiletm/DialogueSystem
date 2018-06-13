@@ -34,7 +34,7 @@ public class DialogueNode : BaseNode
         base.UpdateNode(e, viewRect);
         var start = (StartNode)parentGraph.nodes[0];
 
-        textContainer = start.container.GetComponentInChildren<Text>();
+        //textContainer = start.container.gameObject.GetComponentInChildren<Text>();
 
         if (!modifVar)
         {
@@ -47,7 +47,7 @@ public class DialogueNode : BaseNode
         if(!Application.isPlaying)
             _originalDelay = delay;
 
-        Debug.Log(textContainer.gameObject.name);
+        //Debug.Log(textContainer.gameObject.name);
     }
 
     public override void UpdateNodeGUI(Event e, Rect viewRect, GUISkin viewSkin)
@@ -82,7 +82,8 @@ public class DialogueNode : BaseNode
 
     void WriteText()
     {
-        textContainer.text = dialogue;
+        var start = (StartNode)parentGraph.nodes[0];
+        start.container.ChangeText(dialogue);
     }
 
     bool Condition()

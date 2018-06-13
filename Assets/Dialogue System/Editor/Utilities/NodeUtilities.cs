@@ -13,7 +13,7 @@ public static class NodeUtilities {
             currentGraph.graphName = graphName;
             currentGraph.InitGraph();
 
-            AssetDatabase.CreateAsset(currentGraph, "Assets/Dialogue System/Database/" + graphName + ".asset");
+            AssetDatabase.CreateAsset(currentGraph, "Assets/Dialogue System/Resources/Database/" + graphName + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
@@ -36,25 +36,28 @@ public static class NodeUtilities {
     public static void LoadGraph()
     {
         NodeGraph currentGraph = null;
-        string graphPath = EditorUtility.OpenFilePanel("Load Graph", Application.dataPath + "/Dialogue System/Database/", "");
-        
-        int appPathLen = Application.dataPath.Length;
-        string finalPath = graphPath.Substring(appPathLen - 6);
+        string graphPath = EditorUtility.OpenFilePanel("Load Graph", Application.dataPath + "/Dialogue System/Resources/Database/", "");
 
-        currentGraph = (NodeGraph)AssetDatabase.LoadAssetAtPath(finalPath, typeof(NodeGraph));
-
-        if(currentGraph != null)
+        if (graphPath != "")
         {
-            NodeGraphWindow currentWindow = (NodeGraphWindow)EditorWindow.GetWindow<NodeGraphWindow>();
+            int appPathLen = Application.dataPath.Length;
+            string finalPath = graphPath.Substring(appPathLen - 6);
 
-            if (currentWindow != null)
+            currentGraph = (NodeGraph)AssetDatabase.LoadAssetAtPath(finalPath, typeof(NodeGraph));
+
+            if (currentGraph != null)
             {
-                currentWindow.currentGraph = currentGraph;
+                NodeGraphWindow currentWindow = (NodeGraphWindow)EditorWindow.GetWindow<NodeGraphWindow>();
+
+                if (currentWindow != null)
+                {
+                    currentWindow.currentGraph = currentGraph;
+                }
             }
-        }
-        else
-        {
-            EditorUtility.DisplayDialog("Graph Message", "No se pudo cargar el Grapho seleccionado", "OK");
+            else
+            {
+                EditorUtility.DisplayDialog("Graph Message", "No se pudo cargar el Grapho seleccionado", "OK");
+            }
         }
     }
 

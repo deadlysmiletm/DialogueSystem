@@ -18,6 +18,7 @@ public class DialogueBehaviour : MonoBehaviour {
         if (graph != null)
         {
             AssignBehaviour(graph);
+            this.gameObject.SetActive(false);
         }
 	}
 	
@@ -30,7 +31,9 @@ public class DialogueBehaviour : MonoBehaviour {
 
     public void Play()
     {
+        this.gameObject.SetActive(true);
         _isPlaying = true;
+        AssignBehaviour(graph);
     }
 
     void Playing()
@@ -53,11 +56,18 @@ public class DialogueBehaviour : MonoBehaviour {
             nodes.behaviour = this;
         }
 
+        var source = (BaseNode[])Resources.LoadAll<BaseNode>("Database/" + graph.name);
+
+        foreach (var item in source)
+        {
+            if (item.GetType() == typeof(StartNode))
+            {
+                var start = (StartNode)item;
+                start.container = (DialogueBehaviour)Resources.Load<DialogueBehaviour>("Prefab/DialogueContainer");
+            }
+        }
+
         _actualNode = grapho.nodes[0];
-
-        var start = (StartNode)_actualNode;
-
-        start.container = this.gameObject;
     }
 
     public void ChangeNode(BaseNode node)
@@ -90,5 +100,10 @@ public class DialogueBehaviour : MonoBehaviour {
         temp.gameObject.SetActive(false);
 
         _poolButtons.Add(temp.gameObject);
+    }
+
+    public void ChangeText(string text)
+    {
+        GetComponentInChildren<UnityEngine.UI.Text>().text = text;
     }
 }

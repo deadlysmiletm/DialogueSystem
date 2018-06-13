@@ -5,17 +5,17 @@ using UnityEngine.UI;
 using UnityEditor;
 
 [System.Serializable]
+public class MultiNodeOutput
+{
+    public bool hasSomething;
+    public List<BaseNode> outputNode;
+}
+
+[System.Serializable]
 public class QuestionNode : BaseNode
 {
     public MultiNodeOutput output;
     private bool _initialized = false;
-
-    [System.Serializable]
-    public class MultiNodeOutput
-    {
-        public bool hasSomething;
-        public List<BaseNode> outputNode;
-    }
 
     public QuestionNode()
     {

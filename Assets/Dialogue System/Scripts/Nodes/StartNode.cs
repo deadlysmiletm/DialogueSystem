@@ -9,7 +9,7 @@ public class StartNode : BaseNode {
     public float delay;
 
     public bool delayMod, keyMod;
-    public GameObject container;
+    public DialogueBehaviour container;
 
 
     public StartNode()
@@ -52,13 +52,13 @@ public class StartNode : BaseNode {
 
     public override void IsActive()
     {
-        if (output.outputNode != null)
-            behaviour.ChangeNode(output.outputNode);
-
-        for (int i = 0; i <= 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             behaviour.ButtonFactory();
         }
+
+        if (output.outputNode != null)
+            behaviour.ChangeNode(output.outputNode);
     }
 
 
