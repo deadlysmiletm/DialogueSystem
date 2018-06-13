@@ -65,7 +65,7 @@ public class QuestionNode : BaseNode
         {
             var temp = (AnswerNode)node;
 
-            temp.answerButton = behaviour.TakePool();
+            temp.answerButton = DialogueDatabase.activeDialogue.TakePool();
 
             temp.answerButton.GetComponent<RectTransform>().position = temp.buttonPosition;
             temp.answerButton.GetComponentInChildren<Text>().text = temp.answer;
@@ -84,11 +84,11 @@ public class QuestionNode : BaseNode
         {
             var temp = (AnswerNode)answers;
 
-            behaviour.ReturnPool(temp.answerButton);
+            DialogueDatabase.activeDialogue.ReturnPool(temp.answerButton);
             temp.answerButton = null;
         }
 
-        behaviour.ChangeNode(nodeSeleceted);
+        DialogueDatabase.activeDialogue.ChangeNode(nodeSeleceted);
     }
 
 }

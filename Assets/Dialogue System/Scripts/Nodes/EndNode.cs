@@ -45,6 +45,6 @@ public class EndNode : BaseNode {
 
     public override void IsActive()
     {
-        behaviour.Stop();
+        DialogueDatabase.activeDialogue.Stop();
     }
 }

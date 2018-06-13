@@ -79,7 +79,7 @@ public class AnswerNode : BaseNode {
 
     public override void IsActive()
     {
-        behaviour.ChangeNode(output.outputNode);
+        DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
     }
 
     protected override void NodeStyle(GUISkin viewSkin) {

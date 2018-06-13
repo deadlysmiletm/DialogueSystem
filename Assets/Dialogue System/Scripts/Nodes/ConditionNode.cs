@@ -23,9 +23,57 @@ public class ConditionNode : BaseNode
     public Dictionary<string, float> floatingConditions;
     public Dictionary<string, bool> booleanConditions;
 
-    private Dictionary<string, object> variables;
+    private Dictionary<string, object> variables = new Dictionary<string, object>();
     private Dictionary<string, OperationType> operationTypes;
 
+    public void ChangeIntegrerVar(string varName, int value)
+    {
+        if(value.GetType() == typeof(int))
+            variables[varName] = (int)value;
+    }
+
+    public void ChangeFloatingValue(string varName, float value)
+    {
+        if(value.GetType() == typeof(float))
+            variables[varName] = (float)value;
+    }
+
+    public void ChangeBooleanValue(string varName, bool value)
+    {
+        if(value.GetType() == typeof(bool))
+            variables[varName] = (bool)value;
+    }
+
+    public object GetValue(string varName)
+    {
+        return variables[varName];
+    }
+
+    public void UpdateVariables()
+    {
+        foreach (var item in integrerConditions)
+        {
+            if (!variables.ContainsKey(item.Key))
+                variables.Add(item.Key, item.Value);
+        }
+
+        foreach (var item in floatingConditions)
+        {
+            if (!variables.ContainsKey(item.Key))
+                variables.Add(item.Key, item.Value);
+        }
+
+        foreach (var item in booleanConditions)
+        {
+            if (!variables.ContainsKey(item.Key))
+                variables.Add(item.Key, item.Value);
+        }
+    }
+
+    public void ClearVariables()
+    {
+        variables = new Dictionary<string, object>();
+    }
 
     public override void InitNode()
     {
@@ -47,16 +95,16 @@ public class ConditionNode : BaseNode
     public override void IsActive()
     {
         if (ConditionCertification())
-            behaviour.ChangeNode(output.outputNode);
+            DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
         else
         {
             if(changeGraph)
             {
                 if (newGraph != null)
-                    behaviour.AssignBehaviour(newGraph);
+                    DialogueDatabase.activeDialogue.AssignBehaviour(newGraph);
             }
             else
-                behaviour.Stop();
+                DialogueDatabase.activeDialogue.Stop();
         }
     }
 

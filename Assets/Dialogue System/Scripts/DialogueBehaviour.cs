@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DialogueBehaviour : MonoBehaviour {
 
@@ -11,18 +12,23 @@ public class DialogueBehaviour : MonoBehaviour {
     private NodeGraph _currentGraph;
     private BaseNode _actualNode;
     private bool _isPlaying;
+    private GameObject _canvas;
 
-    // Use this for initialization
+    public void SetCanvas(GameObject canvas)
+    {
+        _canvas = canvas;
+    }
+
     void Start()
     {
         if (graph != null)
         {
             AssignBehaviour(graph);
             this.gameObject.SetActive(false);
+            _canvas = transform.parent.gameObject;
         }
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (_isPlaying && _currentGraph != null)
@@ -33,6 +39,7 @@ public class DialogueBehaviour : MonoBehaviour {
     {
         this.gameObject.SetActive(true);
         _isPlaying = true;
+        DialogueDatabase.activeDialogue = this;
         AssignBehaviour(graph);
     }
 
@@ -50,22 +57,6 @@ public class DialogueBehaviour : MonoBehaviour {
     public void AssignBehaviour(NodeGraph grapho)
     {
         _currentGraph = grapho;
-
-        foreach (var nodes in grapho.nodes)
-        {
-            nodes.behaviour = this;
-        }
-
-        var source = (BaseNode[])Resources.LoadAll<BaseNode>("Database/" + graph.name);
-
-        foreach (var item in source)
-        {
-            if (item.GetType() == typeof(StartNode))
-            {
-                var start = (StartNode)item;
-                start.container = (DialogueBehaviour)Resources.Load<DialogueBehaviour>("Prefab/DialogueContainer");
-            }
-        }
 
         _actualNode = grapho.nodes[0];
     }

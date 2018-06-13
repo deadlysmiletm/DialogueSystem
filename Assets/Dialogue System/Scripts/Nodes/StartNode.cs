@@ -9,7 +9,6 @@ public class StartNode : BaseNode {
     public float delay;
 
     public bool delayMod, keyMod;
-    public DialogueBehaviour container;
 
 
     public StartNode()
@@ -54,11 +53,11 @@ public class StartNode : BaseNode {
     {
         for (int i = 0; i < 2; i++)
         {
-            behaviour.ButtonFactory();
+            DialogueDatabase.activeDialogue.ButtonFactory();
         }
 
         if (output.outputNode != null)
-            behaviour.ChangeNode(output.outputNode);
+            DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
     }
 
 

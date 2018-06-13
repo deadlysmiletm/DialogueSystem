@@ -47,7 +47,7 @@ public class DelayNode : BaseNode {
         else
         {
             _delay = delay;
-            behaviour.ChangeNode(output.outputNode);
+            DialogueDatabase.activeDialogue.ChangeNode(output.outputNode);
         }
     }
 }

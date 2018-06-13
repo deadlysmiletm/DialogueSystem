@@ -283,7 +283,6 @@ public static class NodeUtilities {
     public static void CreateContainer(GameObject prefab, GameObject canvas, string name)
     {
         var temp = GameObject.Instantiate(prefab);
-
         temp.transform.SetParent(canvas.transform, false);
         temp.name = name;
     }
